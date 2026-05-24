@@ -17,7 +17,7 @@ AstroWind is a free, open-source website template built with **Astro v6** and **
 | `bun run check`   | Run astro check + ESLint + Prettier |
 | `bun run fix`     | Auto-fix ESLint + Prettier issues   |
 
-**Package manager:** bun (commit `bun.lockb`). **Node.js requirement:** >= 22.12.0 (Astro runtime).
+**Package manager:** bun (commit `bun.lock`). **Node.js requirement:** >= 22.12.0 (Astro runtime).
 
 ## Architecture
 
