@@ -1,30 +1,30 @@
 site:
-  name: AstroWind
-  site: 'https://astrowind.vercel.app'
+  name: lofoneh.com
+  site: 'https://lofoneh.com'
   base: '/'
   trailingSlash: false
 
-  googleSiteVerificationId: orcPxI47GSa-cRvY11tUe6iGg2IO_RPvnA1q95iEM3M
+  googleSiteVerificationId: false # TODO: set when you claim the domain in Google Search Console
 
 # Default SEO metadata
 metadata:
   title:
-    default: AstroWind
-    template: '%s — AstroWind'
-  description: "\U0001F680 Suitable for Startups, Small Business, Sass Websites, Professional Portfolios, Marketing Websites, Landing Pages & Blogs."
+    default: Jeffery Lofoneh Asamani
+    template: '%s — Jeffery Lofoneh Asamani'
+  description: 'Personal portfolio of Jeffery Lofoneh Asamani — backend engineer building reliable systems.'
   robots:
     index: true
     follow: true
   openGraph:
-    site_name: AstroWind
+    site_name: lofoneh.com
     images:
-      - url: '~/assets/images/default.png'
+      - url: '~/assets/images/default.png' # TODO: replace with a real OG image in phase 7
         width: 1200
         height: 628
     type: website
   twitter:
-    handle: '@arthelokyo'
-    site: '@arthelokyo'
+    handle: '@lofoneh' # TODO: replace with your real handle (or remove if you don't use X)
+    site: '@lofoneh'
     cardType: summary_large_image
 
 i18n:
@@ -38,25 +38,25 @@ apps:
 
     post:
       isEnabled: true
-      permalink: '/%slug%' # Variables: %slug%, %year%, %month%, %day%, %hour%, %minute%, %second%, %category%
+      permalink: '/writing/%slug%' # Posts live at /writing/<slug>
       robots:
         index: true
 
     list:
       isEnabled: true
-      pathname: 'blog' # Blog main path, you can change this to "articles" (/articles)
+      pathname: 'writing' # Blog index lives at /writing
       robots:
         index: true
 
     category:
       isEnabled: true
-      pathname: 'category' # Category main path /category/some-category, you can change this to "group" (/group/some-category)
+      pathname: 'writing/category'
       robots:
         index: true
 
     tag:
       isEnabled: true
-      pathname: 'tag' # Tag main path /tag/some-tag, you can change this to "topics" (/topics/some-category)
+      pathname: 'writing/tag'
       robots:
         index: false
 
@@ -66,7 +66,7 @@ apps:
 analytics:
   vendors:
     googleAnalytics:
-      id: null # or "G-XXXXXXXXXX"
+      id: null # TODO: set when you have a GA4 property (or skip and use Vercel Analytics)
 
 ui:
-  theme: 'system' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"
+  theme: 'dark' # Dark-first. Toggle still available via Header.
