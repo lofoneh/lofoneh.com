@@ -1,5 +1,5 @@
 site:
-  name: lofoneh.com
+  name: Lofoneh
   site: 'https://lofoneh.com'
   base: '/'
   trailingSlash: false
@@ -16,7 +16,7 @@ metadata:
     index: true
     follow: true
   openGraph:
-    site_name: lofoneh.com
+    site_name: Lofoneh
     images:
       - url: '~/assets/images/default.png' # TODO: replace with a real OG image in phase 7
         width: 1200
