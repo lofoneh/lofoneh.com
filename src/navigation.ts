@@ -19,5 +19,5 @@ export const footerData = {
     { ariaLabel: 'Email', icon: 'tabler:mail', href: 'mailto:jefferyasamani7@gmail.com' },
     { ariaLabel: 'RSS', icon: 'tabler:rss', href: getAsset('/rss.xml') },
   ],
-  footNote: `© 2026 Jeffery Lofoneh Asamani · Adapted from <a class="underline" href="https://github.com/arthelokyo/astrowind">AstroWind</a> by <a class="underline" href="https://github.com/arthelokyo">@arthelokyo</a>.`,
+  footNote: `© 2026 Jeffery Lofoneh Asamani.`,
 };
