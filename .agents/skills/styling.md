@@ -64,7 +64,7 @@ Edit `src/components/CustomStyles.astro`:
 
 ## Changing Fonts
 
-1. Install the font: `npm install @fontsource-variable/your-font`
+1. Install the font: `bun add @fontsource-variable/your-font`
 2. Import in `CustomStyles.astro`: `import '@fontsource-variable/your-font'`
 3. Update the CSS variable: `--aw-font-sans: 'Your Font Variable'`
 

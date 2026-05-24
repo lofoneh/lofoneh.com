@@ -20,7 +20,7 @@ author: 'Author Name'
 ```
 
 3. Write content in Markdown (or MDX for component embedding)
-4. Run `npm run build` to verify the post renders correctly
+4. Run `bun run build` to verify the post renders correctly
 
 ## Frontmatter Fields
 

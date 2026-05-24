@@ -10,13 +10,14 @@ AstroWind is a free, open-source website template built with **Astro v6** and **
 
 | Command           | Purpose                             |
 | ----------------- | ----------------------------------- |
-| `npm run dev`     | Start dev server at localhost:4321  |
-| `npm run build`   | Production build to `./dist/`       |
-| `npm run preview` | Preview production build locally    |
-| `npm run check`   | Run astro check + ESLint + Prettier |
-| `npm run fix`     | Auto-fix ESLint + Prettier issues   |
+| `bun install`     | Install dependencies                |
+| `bun run dev`     | Start dev server at localhost:4321  |
+| `bun run build`   | Production build to `./dist/`       |
+| `bun run preview` | Preview production build locally    |
+| `bun run check`   | Run astro check + ESLint + Prettier |
+| `bun run fix`     | Auto-fix ESLint + Prettier issues   |
 
-**Node.js requirement:** >= 22.12.0
+**Package manager:** bun (commit `bun.lockb`). **Node.js requirement:** >= 22.12.0 (Astro runtime).
 
 ## Architecture
 
@@ -101,6 +102,6 @@ Hero images use `loading="eager"` and `fetchpriority="high"`.
 
 After changes, always verify:
 
-1. `npm run build` succeeds
-2. `npm run check` passes (astro check + ESLint + Prettier)
+1. `bun run build` succeeds
+2. `bun run check` passes (astro check + ESLint + Prettier)
 3. Visual check in browser: homepage, blog, dark mode, mobile menu
