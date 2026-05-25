@@ -1,24 +1,24 @@
 ---
-import Layout from '~/layouts/Layout.astro';
-import { getHomePermalink } from '~/utils/permalinks';
-
-const title = `Error 404`;
+import Layout from '~/layouts/PageLayout.astro';
+import SectionLabel from '~/components/ui/SectionLabel.astro';
+import TerminalCTA from '~/components/ui/TerminalCTA.astro';
 ---
 
-<Layout metadata={{ title }}>
-  <section class="flex items-center h-full p-16">
-    <div class="container flex flex-col items-center justify-center px-5 mx-auto my-8">
-      <div class="max-w-md text-center">
-        <h2 class="mb-8 font-bold text-9xl">
-          <span class="sr-only">Error</span>
-          <span class="text-primary">404</span>
-        </h2>
-        <p class="text-3xl font-semibold md:text-3xl">Sorry, we couldn't find this page.</p>
-        <p class="mt-4 mb-8 text-lg text-muted dark:text-slate-400">
-          But don't worry, you can find plenty of other things on our homepage.
-        </p>
-        <a rel="noopener noreferrer" href={getHomePermalink()} class="btn ml-4">Back to homepage</a>
-      </div>
+<!--
+  /404 — monochrome, terminal-flavored, mirrors the rest of the site.
+-->
+<Layout metadata={{ title: 'Page not found', ignoreTitleTemplate: false }}>
+  <section class="mx-auto max-w-3xl px-4 py-24 sm:px-6 md:py-32 lg:px-8">
+    <SectionLabel text="404" class="mb-6" />
+    <h1 class="mb-6 text-4xl font-bold leading-[1.05] tracking-tight text-ink sm:text-5xl md:text-6xl">
+      Page not found.
+    </h1>
+    <p class="mb-12 text-base leading-relaxed text-ink-2 sm:text-lg">
+      The URL you tried doesn't exist on this site — either it was never here, or it moved.
+    </p>
+    <div class="flex flex-wrap items-center gap-x-8 gap-y-3">
+      <TerminalCTA href="/" text="back-home" />
+      <TerminalCTA href="/projects" text="view-projects" />
     </div>
   </section>
 </Layout>
