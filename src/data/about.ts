@@ -36,6 +36,10 @@ export const stackCategories: StackCategory[] = [
     items: [{ slug: 'kubernetes' }, { slug: 'helm' }, { slug: 'docker' }],
   },
   {
+    label: 'Databases',
+    items: [{ slug: 'postgresql' }, { slug: 'mysql' }, { slug: 'mongodb' }],
+  },
+  {
     label: 'CI / CD',
     items: [{ slug: 'github-actions' }, { slug: 'azure-devops' }, { slug: 'github' }],
   },
