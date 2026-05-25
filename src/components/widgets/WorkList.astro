@@ -1,0 +1,29 @@
+---
+import WorkCard from '~/components/ui/WorkCard.astro';
+import type { Project } from '~/data/projects';
+
+export interface Props {
+  projects: Project[];
+  columns?: 1 | 2;
+}
+
+const { projects, columns = 2 } = Astro.props;
+
+const gridClass = columns === 1 ? 'grid grid-cols-1 gap-4 sm:gap-6' : 'grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2';
+---
+
+<!--
+  Renders a list of projects as a responsive grid.
+  Mobile: single column. md+ (768px+): two columns by default.
+  Pass columns={1} for the home-page teaser if a single column reads better there.
+-->{
+  projects.length > 0 ? (
+    <div class={gridClass}>
+      {projects.map((project, i) => (
+        <WorkCard project={project} index={i} />
+      ))}
+    </div>
+  ) : (
+    <p class="font-mono text-sm text-ink-3">[ no projects yet — check back soon ]</p>
+  )
+}

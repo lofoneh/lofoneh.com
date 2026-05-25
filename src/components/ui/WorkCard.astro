@@ -1,0 +1,94 @@
+---
+import type { Project } from '~/data/projects';
+
+export interface Props {
+  project: Project;
+  index?: number;
+}
+
+const { project, index } = Astro.props;
+const { title, oneLiner, stack, role, year, links } = project;
+
+const indexLabel = typeof index === 'number' ? String(index + 1).padStart(2, '0') : null;
+---
+
+<!--
+  Single project card. Monochrome, hairline border, hover lifts the border
+  to --ink. No background change so it stays restrained.
+  Layout: meta row → title → one-liner → stack tags → links row.
+  Responsive: stacks naturally; nothing fixed-pixel.
+-->
+<article
+  class="group flex flex-col gap-4 border border-rule p-6 transition-colors duration-200 hover:border-ink sm:p-8"
+>
+  <header class="flex items-baseline justify-between font-mono text-xs text-ink-3">
+    {indexLabel && <span aria-hidden="true">[{indexLabel}]</span>}
+    <span>{year}</span>
+  </header>
+
+  <h3 class="text-xl font-semibold leading-tight text-ink sm:text-2xl">
+    {title}
+  </h3>
+
+  <p class="text-sm text-ink-2 sm:text-base">{oneLiner}</p>
+
+  <p class="font-mono text-xs text-ink-3">
+    role: <span class="text-ink-2">{role}</span>
+  </p>
+
+  {
+    stack.length > 0 && (
+      <ul class="flex flex-wrap gap-x-2 gap-y-1 font-mono text-xs text-ink-2">
+        {stack.map((tag) => (
+          <li>[ {tag} ]</li>
+        ))}
+      </ul>
+    )
+  }
+
+  {
+    (links.live || links.repo || links.docs) && (
+      <div class="mt-2 flex flex-wrap gap-x-6 gap-y-2 border-t border-rule pt-4 font-mono text-sm">
+        {links.live && (
+          <a
+            class="group/link inline-flex items-baseline gap-1 text-ink no-underline transition-colors hover:text-ink-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+            href={links.live}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span aria-hidden="true" class="text-ink-3 group-hover/link:text-ink">
+              $
+            </span>
+            <span class="underline-offset-[6px] decoration-1 group-hover/link:underline">./live</span>
+          </a>
+        )}
+        {links.repo && (
+          <a
+            class="group/link inline-flex items-baseline gap-1 text-ink no-underline transition-colors hover:text-ink-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+            href={links.repo}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span aria-hidden="true" class="text-ink-3 group-hover/link:text-ink">
+              $
+            </span>
+            <span class="underline-offset-[6px] decoration-1 group-hover/link:underline">./repo</span>
+          </a>
+        )}
+        {links.docs && (
+          <a
+            class="group/link inline-flex items-baseline gap-1 text-ink no-underline transition-colors hover:text-ink-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+            href={links.docs}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span aria-hidden="true" class="text-ink-3 group-hover/link:text-ink">
+              $
+            </span>
+            <span class="underline-offset-[6px] decoration-1 group-hover/link:underline">./docs</span>
+          </a>
+        )}
+      </div>
+    )
+  }
+</article>
