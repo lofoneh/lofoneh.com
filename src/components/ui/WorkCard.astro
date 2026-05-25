@@ -1,54 +1,62 @@
 ---
+import { Icon } from 'astro-icon/components';
 import type { Project } from '~/data/projects';
+import { resolveStackIcon } from '~/data/stack-icons';
 
 export interface Props {
   project: Project;
-  index?: number;
 }
 
-const { project, index } = Astro.props;
+const { project } = Astro.props;
 const { title, oneLiner, stack, role, year, links } = project;
 
-const indexLabel = typeof index === 'number' ? String(index + 1).padStart(2, '0') : null;
+const stackEntries = stack.map((slug) => ({ slug, ...resolveStackIcon(slug) }));
 ---
 
 <!--
-  Single project card. Monochrome, hairline border, hover lifts the border
-  to --ink. No background change so it stays restrained.
-  Layout: meta row → title → one-liner → stack tags → links row.
-  Responsive: stacks naturally; nothing fixed-pixel.
+  Single project card. Monochrome, hairline border, hover lifts border to --ink.
+  Layout (top → bottom): meta line (year · role) → title → one-liner → stack icons → link row.
+  Icons come from Simple Icons via astro-icon; unknown stack slugs fall back to mono text.
 -->
 <article
-  class="group flex flex-col gap-4 border border-rule p-6 transition-colors duration-200 hover:border-ink sm:p-8"
+  class="group flex flex-col gap-5 border border-rule p-6 transition-colors duration-200 hover:border-ink sm:gap-6 sm:p-8"
 >
-  <header class="flex items-baseline justify-between font-mono text-xs text-ink-3">
-    {indexLabel && <span aria-hidden="true">[{indexLabel}]</span>}
-    <span>{year}</span>
-  </header>
+  <p class="font-mono text-xs text-ink-3">
+    {year}
+    {role && <span class="ml-2">· {role}</span>}
+  </p>
 
   <h3 class="text-xl font-semibold leading-tight text-ink sm:text-2xl">
     {title}
   </h3>
 
-  <p class="text-sm text-ink-2 sm:text-base">{oneLiner}</p>
-
-  <p class="font-mono text-xs text-ink-3">
-    role: <span class="text-ink-2">{role}</span>
-  </p>
+  <p class="text-sm leading-relaxed text-ink-2 sm:text-base">{oneLiner}</p>
 
   {
-    stack.length > 0 && (
-      <ul class="flex flex-wrap gap-x-2 gap-y-1 font-mono text-xs text-ink-2">
-        {stack.map((tag) => (
-          <li>[ {tag} ]</li>
-        ))}
+    stackEntries.length > 0 && (
+      <ul class="flex flex-wrap items-center gap-x-4 gap-y-2 text-ink-2">
+        {stackEntries.map((entry) =>
+          entry.iconName ? (
+            <li
+              class="inline-flex items-center transition-colors hover:text-ink"
+              aria-label={entry.label}
+              title={entry.label}
+            >
+              <Icon name={entry.iconName} class="h-5 w-5" aria-hidden="true" />
+            </li>
+          ) : (
+            <li class="font-mono text-xs text-ink-3" title={entry.label}>
+              [ {entry.slug} ]
+            </li>
+          )
+        )}
       </ul>
     )
   }
 
   {
     (links.live || links.repo || links.docs) && (
-      <div class="mt-2 flex flex-wrap gap-x-6 gap-y-2 border-t border-rule pt-4 font-mono text-sm">
+      <div class="flex flex-wrap gap-x-6 gap-y-2 font-mono text-sm">
         {links.live && (
           <a
             class="group/link inline-flex items-baseline gap-1 text-ink no-underline transition-colors hover:text-ink-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
