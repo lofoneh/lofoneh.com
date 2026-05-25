@@ -1,9 +1,8 @@
 ---
-import { Icon } from 'astro-icon/components';
-
 import Image from '~/components/common/Image.astro';
 import PostTags from '~/components/blog/Tags.astro';
 import SocialShare from '~/components/common/SocialShare.astro';
+import SectionLabel from '~/components/ui/SectionLabel.astro';
 
 import { getPermalink } from '~/utils/permalinks';
 import { getFormattedDate } from '~/utils/utils';
@@ -18,87 +17,79 @@ export interface Props {
 const { post, url } = Astro.props;
 ---
 
-<section class="py-8 sm:py-16 lg:py-20 mx-auto">
-  <article>
-    <header
-      class={post.image
-        ? 'intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade'
-        : 'intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade'}
-    >
-      <div class="flex justify-between flex-col sm:flex-row max-w-3xl mx-auto mt-0 mb-2 px-4 sm:px-6 sm:items-center">
-        <p>
-          <Icon name="tabler:clock" class="w-4 h-4 inline-block -mt-0.5 dark:text-gray-400" />
-          <time datetime={String(post.publishDate)} class="inline-block">{getFormattedDate(post.publishDate)}</time>
-          {
-            post.author && (
-              <>
-                {' '}
-                · <Icon name="tabler:user" class="w-4 h-4 inline-block -mt-0.5 dark:text-gray-400" />
-                <span class="inline-block">{post.author}</span>
-              </>
-            )
-          }
-          {
-            post.category && (
-              <>
-                {' '}
-                ·{' '}
-                <a class="hover:underline inline-block" href={getPermalink(post.category.slug, 'category')}>
-                  {post.category.title}
-                </a>
-              </>
-            )
-          }
-          {
-            post.readingTime && (
-              <>
-                &nbsp;· <span>{post.readingTime}</span> min read
-              </>
-            )
-          }
-        </p>
-      </div>
+<!--
+  Single post layout. Monochrome, reading-width-constrained body.
+  Spec: prose body capped at ~38rem; max-w-2xl ≈ 42rem is close enough.
+  Prose styles use prose-invert in dark; link colours collapse to underline.
+-->
+<article class="mx-auto max-w-5xl px-4 pb-8 pt-12 sm:px-6 md:pt-20 lg:px-8">
+  <header class="mx-auto max-w-2xl">
+    <SectionLabel text="writing" class="mb-4" />
 
-      <h1
-        class="px-4 sm:px-6 max-w-3xl mx-auto text-4xl md:text-5xl font-bold leading-tighter tracking-tighter font-heading"
-      >
-        {post.title}
-      </h1>
-      <p
-        class="max-w-3xl mx-auto mt-4 mb-8 px-4 sm:px-6 text-xl md:text-2xl text-muted dark:text-slate-400 text-justify"
-      >
-        {post.excerpt}
-      </p>
+    <h1 class="mb-5 text-3xl font-bold leading-tight tracking-tight text-ink sm:text-4xl md:text-5xl">
+      {post.title}
+    </h1>
 
+    {post.excerpt && <p class="mb-6 text-lg leading-relaxed text-ink-2 sm:text-xl">{post.excerpt}</p>}
+
+    <p class="font-mono text-xs text-ink-3">
+      <time datetime={String(post.publishDate)}>{getFormattedDate(post.publishDate)}</time>
       {
-        post.image ? (
-          <Image
-            src={post.image}
-            class="max-w-full lg:max-w-[900px] mx-auto mb-6 sm:rounded-md bg-gray-400 dark:bg-slate-700"
-            widths={[400, 900]}
-            sizes="(max-width: 900px) 400px, 900px"
-            alt={post?.excerpt || ''}
-            width={900}
-            height={506}
-            format="webp"
-            loading="eager"
-            decoding="async"
-          />
-        ) : (
-          <div class="max-w-3xl mx-auto px-4 sm:px-6">
-            <div class="border-t dark:border-slate-700" />
-          </div>
+        post.author && (
+          <>
+            <span class="mx-2">·</span>
+            <span>{post.author.replaceAll('-', ' ')}</span>
+          </>
         )
       }
-    </header>
-    <div
-      class="mx-auto px-6 sm:px-6 max-w-3xl prose prose-md lg:prose-xl dark:prose-invert dark:prose-headings:text-slate-300 prose-headings:font-heading prose-headings:leading-tighter prose-headings:tracking-tighter prose-headings:font-bold prose-a:text-primary dark:prose-a:text-blue-400 prose-img:rounded-md prose-img:shadow-lg mt-8 prose-headings:scroll-mt-[80px] prose-li:my-0"
-    >
-      <slot />
-    </div>
-    <div class="mx-auto px-6 sm:px-6 max-w-3xl mt-8 flex justify-between flex-col sm:flex-row">
-      <PostTags tags={post.tags} class="mr-5 rtl:mr-0 rtl:ml-5" />
-      <SocialShare url={url} text={post.title} class="mt-5 sm:mt-1 align-middle text-gray-500 dark:text-slate-600" />
-    </div>
-  </article>
-</section>
+      {
+        post.category && (
+          <>
+            <span class="mx-2">·</span>
+            <a class="transition-colors hover:text-ink" href={getPermalink(post.category.slug, 'category')}>
+              {post.category.title.toLowerCase()}
+            </a>
+          </>
+        )
+      }
+      {
+        post.readingTime && (
+          <>
+            <span class="mx-2">·</span>
+            <span>{post.readingTime} min read</span>
+          </>
+        )
+      }
+    </p>
+  </header>
+
+  {
+    post.image && (
+      <div class="mx-auto mt-10 max-w-3xl">
+        <Image
+          src={post.image}
+          class="w-full"
+          widths={[400, 900]}
+          sizes="(max-width: 900px) 400px, 900px"
+          alt={post?.excerpt || ''}
+          width={900}
+          height={506}
+          format="webp"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+    )
+  }
+
+  <div
+    class="prose prose-lg mx-auto mt-12 max-w-2xl text-ink prose-headings:font-heading prose-headings:font-semibold prose-headings:text-ink prose-headings:tracking-tight prose-headings:scroll-mt-20 prose-p:text-ink prose-a:text-ink prose-a:underline prose-a:underline-offset-[6px] prose-a:decoration-1 hover:prose-a:text-ink-2 prose-strong:text-ink prose-blockquote:border-l-rule prose-blockquote:text-ink-2 prose-code:text-ink prose-code:font-mono prose-code:before:content-none prose-code:after:content-none prose-pre:bg-surface-2 prose-pre:text-ink prose-pre:border prose-pre:border-rule prose-hr:border-rule prose-li:my-1 dark:prose-invert"
+  >
+    <slot />
+  </div>
+
+  <footer class="mx-auto mt-10 flex max-w-2xl flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+    {post.tags && <PostTags tags={post.tags} />}
+    <SocialShare url={url} text={post.title} class="font-mono text-xs text-ink-3" />
+  </footer>
+</article>

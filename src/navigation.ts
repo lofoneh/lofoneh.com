@@ -1,9 +1,9 @@
 import { getPermalink, getBlogPermalink, getAsset } from './utils/permalinks';
 
-// TODO: replace placeholder URLs (GitHub, LinkedIn, email) with your real handles when ready.
 export const headerData = {
   links: [
-    { text: 'Work', href: getPermalink('/work') },
+    { text: 'Experience', href: getPermalink('/experience') },
+    { text: 'Projects', href: getPermalink('/projects') },
     { text: 'Writing', href: getBlogPermalink() },
     { text: 'About', href: getPermalink('/about') },
   ],
@@ -15,7 +15,8 @@ export const footerData = {
   secondaryLinks: [],
   socialLinks: [
     { ariaLabel: 'GitHub', icon: 'tabler:brand-github', href: 'https://github.com/lofoneh' },
-    { ariaLabel: 'LinkedIn', icon: 'tabler:brand-linkedin', href: 'https://www.linkedin.com/in/lofoneh' },
+    { ariaLabel: 'X (Twitter)', icon: 'tabler:brand-x', href: 'https://x.com/lofoneh' },
+    { ariaLabel: 'LinkedIn', icon: 'tabler:brand-linkedin', href: 'https://www.linkedin.com/in/jeffery-asamani/' },
     { ariaLabel: 'Email', icon: 'tabler:mail', href: 'mailto:jefferyasamani7@gmail.com' },
     { ariaLabel: 'RSS', icon: 'tabler:rss', href: getAsset('/rss.xml') },
   ],

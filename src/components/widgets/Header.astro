@@ -26,13 +26,10 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
 ---
 
 <!--
-  Portfolio header — three-slot layout to play nice with BasicScripts.astro mobile menu logic.
-  Slot 1: brand + hamburger toggle (always visible on mobile)
-  Slot 2: <nav>          (hidden on mobile; revealed when menu expanded; always shown on md+)
-  Slot 3: actions + toggle (hidden on mobile; revealed when menu expanded; always shown on md+)
-
-  BasicScripts toggles `#header nav` and `#header > div > div:last-child` `.hidden` classes
-  on the hamburger click. Do not break that structure without updating the script too.
+  Portfolio header — cleaner mobile/desktop split.
+  Top row always shows brand + (mobile) hamburger / (desktop) nav + actions.
+  A separate mobile panel toggles open below the top row. Closes on link click.
+  BasicScripts toggles `.hidden` on [data-aw-mobile-menu].
 -->
 <header
   class:list={[
@@ -43,45 +40,91 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
   {...id ? { id } : {}}
 >
   <div class="absolute inset-0"></div>
-  <div class="relative mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between px-4 py-4 sm:px-6 md:px-8">
-    <!-- Slot 1: brand + mobile hamburger -->
-    <div class="flex items-center justify-between">
+  <div class="relative mx-auto w-full max-w-6xl px-4 sm:px-6 md:px-8">
+    <!-- Top row: always visible -->
+    <div class="flex h-16 items-center justify-between gap-4 md:h-20">
       <a class="flex items-center" href={getHomePermalink()} aria-label="Home">
         <Logo />
       </a>
+
+      <!-- Desktop nav + actions (md+ only) -->
+      <div class="hidden items-center gap-6 md:flex">
+        <nav aria-label="Main navigation">
+          <ul class="flex items-center gap-1 text-sm">
+            {
+              links.map(({ text, href }) => (
+                <li>
+                  <a
+                    class:list={[
+                      'block px-3 py-2 text-ink-2 transition-colors hover:text-ink',
+                      { 'aw-link-active': href === currentPath },
+                    ]}
+                    href={href}
+                  >
+                    {text}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          {showToggleTheme && <ToggleTheme />}
+          {
+            actions?.length
+              ? actions.map((btnProps) => <Button {...btnProps} variant="secondary" class="text-sm" />)
+              : null
+          }
+        </div>
+      </div>
+
+      <!-- Mobile hamburger (mobile only) -->
       <div class="md:hidden">
         <ToggleMenu class="-mr-2 flex h-10 w-10 cursor-pointer flex-col items-center justify-center" />
       </div>
     </div>
 
-    <!-- Slot 2: nav -->
-    <nav
-      class="hidden w-full overflow-y-auto py-4 text-base md:flex md:w-auto md:items-center md:py-0 md:text-sm"
-      aria-label="Main navigation"
-    >
-      <ul class="flex flex-col gap-1 md:flex-row md:items-center">
-        {
-          links.map(({ text, href }) => (
-            <li>
-              <a
-                class:list={[
-                  'block px-3 py-3 text-ink-2 transition-colors hover:text-ink md:py-2',
-                  { 'aw-link-active': href === currentPath },
-                ]}
-                href={href}
-              >
-                {text}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
+    <!--
+      Mobile expanded panel.
+      Hidden by default; BasicScripts toggles `hidden` when the hamburger fires.
+      Always `md:hidden` so it never shows on desktop, even if the script gets confused.
+    -->
+    <div class="hidden border-t border-rule pb-6 md:hidden" data-aw-mobile-menu>
+      <nav class="pt-2" aria-label="Mobile navigation">
+        <ul class="flex flex-col">
+          {
+            links.map(({ text, href }) => (
+              <li>
+                <a
+                  class:list={[
+                    'block py-3 text-base text-ink-2 transition-colors hover:text-ink',
+                    { 'aw-link-active': href === currentPath },
+                  ]}
+                  href={href}
+                >
+                  {text}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
 
-    <!-- Slot 3: actions + theme toggle (hidden on mobile until menu opens) -->
-    <div class="hidden w-full items-center justify-end gap-2 pb-4 md:flex md:w-auto md:pb-0">
-      {showToggleTheme && <ToggleTheme />}
-      {actions?.length ? actions.map((btnProps) => <Button {...btnProps} variant="secondary" class="text-sm" />) : null}
+      {
+        (showToggleTheme || actions?.length) && (
+          <div class="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-rule pt-4">
+            {showToggleTheme && <ToggleTheme />}
+            {actions?.length ? (
+              <div class="flex flex-wrap gap-2">
+                {actions.map((btnProps) => (
+                  <Button {...btnProps} variant="secondary" class="text-sm" />
+                ))}
+              </div>
+            ) : null}
+          </div>
+        )
+      }
     </div>
   </div>
 </header>

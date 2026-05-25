@@ -31,15 +31,15 @@ const { socialLinks = [], footNote = '' } = Astro.props;
 -->
 <footer class="relative border-t border-rule">
   <div
-    class="mx-auto flex max-w-6xl flex-col items-start gap-6 px-4 py-10 sm:px-6 md:flex-row md:items-center md:justify-between md:px-8"
+    class="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-12 sm:px-6 md:flex-row md:items-center md:justify-between md:gap-6 md:px-8"
   >
     {
       socialLinks.length ? (
-        <ul class="flex flex-wrap items-center gap-1">
+        <ul class="flex flex-wrap items-center gap-1 sm:gap-2">
           {socialLinks.map(({ ariaLabel, href, icon }) => (
             <li>
               <a
-                class="inline-flex h-10 w-10 items-center justify-center rounded text-ink-2 transition-colors hover:bg-surface-2 hover:text-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+                class="inline-flex h-11 w-11 items-center justify-center rounded text-ink-2 transition-colors hover:bg-surface-2 hover:text-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
                 aria-label={ariaLabel}
                 href={href}
               >
@@ -53,7 +53,7 @@ const { socialLinks = [], footNote = '' } = Astro.props;
 
     {
       footNote && (
-        <div class="font-mono text-xs text-ink-3">
+        <div class="font-mono text-xs leading-relaxed text-ink-3">
           <Fragment set:html={footNote} />
         </div>
       )
