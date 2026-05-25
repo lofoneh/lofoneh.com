@@ -8,9 +8,13 @@ export interface Props {
 }
 
 const { project } = Astro.props;
-const { title, oneLiner, stack, role, year, links } = project;
+const { title, oneLiner, stack, role, year, links, status } = project;
 
 const stackEntries = stack.map((slug) => ({ slug, ...resolveStackIcon(slug) }));
+
+// "shipped" reads as the default state — no badge.
+// "ongoing" and "exploring" get a small mono tag in the meta row.
+const statusTag = status === 'shipped' ? null : status;
 ---
 
 <!--
@@ -24,6 +28,7 @@ const stackEntries = stack.map((slug) => ({ slug, ...resolveStackIcon(slug) }));
   <p class="font-mono text-xs text-ink-3">
     {year}
     {role && <span class="ml-2">· {role}</span>}
+    {statusTag && <span class="ml-2">· {statusTag}</span>}
   </p>
 
   <h3 class="text-xl font-semibold leading-tight text-ink sm:text-2xl">

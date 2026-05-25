@@ -11,7 +11,7 @@ import { resolveStackIcon } from '~/data/stack-icons';
 
 const metadata = {
   title: 'About',
-  description: 'About Jeffery Lofoneh Asamani — backend engineer building reliable systems.',
+  description: 'About Jeffery Lofoneh Asamani — software engineer working DevOps at Adaptive Computer Solutions.',
 };
 
 // Resolve each stack item to its icon + display label up-front so the template stays clean.
@@ -42,19 +42,20 @@ const resolvedStack = stackCategories.map((cat) => ({
   <section class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,1fr)_minmax(220px,280px)] md:items-start md:gap-12">
       <div class="order-2 space-y-5 text-base leading-relaxed text-ink sm:text-lg md:order-1">
-        {/* TODO (phase 8): replace these placeholder paragraphs with the real bio. */}
         <p>Hi, I'm Jeffery.</p>
         <p>
-          I'm a backend engineer working on reliable data systems and developer tooling. I care about clear code, honest
-          documentation, and shipping things that actually work — not just things that look good in a demo.
+          I'm a software engineer based in Accra, Ghana, currently doing DevOps at Adaptive Computer Solutions. Most of
+          my day is spent in CI/CD pipelines, Kubernetes, infrastructure-as-code, and observability tooling — the
+          "boring, important" layers that keep production calm.
         </p>
         <p>
-          Most of what I build lives in the boring, important layers of a product: ingestion pipelines that don't drop
-          data, internal CLIs that make platform work less painful, services that don't wake anyone up at 3am.
+          I came to software through the back door: my degree is in Metallurgical Engineering from KNUST, and I taught
+          myself to code afterwards. That background shows up in how I think — I'm comfortable with messy real-world
+          systems and patient with debugging.
         </p>
         <p>
-          I'm currently learning Rust in the open and exploring Pulumi for greenfield infra work. When something breaks,
-          I want to know why — not just route around it.
+          I care about clear code, honest documentation, and shipping things that actually work. I'm currently learning
+          Rust in the open and exploring Pulumi for greenfield infra work.
         </p>
       </div>
 

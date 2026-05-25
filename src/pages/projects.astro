@@ -1,0 +1,50 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import SectionLabel from '~/components/ui/SectionLabel.astro';
+import WorkList from '~/components/widgets/WorkList.astro';
+import { projects } from '~/data/projects';
+
+const metadata = {
+  title: 'Projects',
+  description:
+    'Projects I have built and projects I am exploring next — backend systems, developer tooling, infrastructure.',
+};
+
+const real = projects.filter((p) => p.status !== 'exploring');
+const exploring = projects.filter((p) => p.status === 'exploring');
+---
+
+<!--
+  /projects — the full project list.
+  Real (shipped + ongoing) projects render first, exploring next.
+  Drop new projects into src/data/projects.ts; they appear here automatically.
+-->
+<Layout metadata={metadata}>
+  <section class="mx-auto max-w-5xl px-4 pt-12 pb-8 sm:px-6 md:pt-20 md:pb-12 lg:px-8">
+    <SectionLabel text="projects" class="mb-6" />
+    <h1 class="mb-4 text-3xl font-bold leading-tight text-ink sm:text-4xl md:text-5xl">Things I have built.</h1>
+    <p class="max-w-2xl text-base text-ink-2 sm:text-lg">
+      A selection of work I've shipped or am shipping, plus a few things I'm exploring next.
+    </p>
+  </section>
+
+  {
+    real.length > 0 && (
+      <section class="mx-auto max-w-5xl px-4 pb-12 sm:px-6 md:pb-16 lg:px-8">
+        <WorkList projects={real} />
+      </section>
+    )
+  }
+
+  {
+    exploring.length > 0 && (
+      <section class="mx-auto max-w-5xl px-4 pb-24 sm:px-6 md:pb-32 lg:px-8">
+        <SectionLabel text="next-up" class="mb-6" />
+        <p class="mb-8 max-w-2xl text-sm text-ink-2 sm:text-base">
+          Projects I want to build next — most likely on weekends or as side experiments.
+        </p>
+        <WorkList projects={exploring} />
+      </section>
+    )
+  }
+</Layout>

@@ -70,6 +70,10 @@ const STACK_MAP: Record<string, StackIcon> = {
   grpc: { iconName: 'local:grpc', label: 'gRPC' },
   nginx: { iconName: 'simple-icons:nginx', label: 'NGINX' },
   linux: { iconName: 'simple-icons:linux', label: 'Linux' },
+  ansible: { iconName: 'simple-icons:ansible', label: 'Ansible' },
+  traefik: { iconName: 'simple-icons:traefikproxy', label: 'Traefik' },
+  digitalocean: { iconName: 'simple-icons:digitalocean', label: 'DigitalOcean' },
+  'digital-ocean': { iconName: 'simple-icons:digitalocean', label: 'DigitalOcean' },
 
   // Frameworks
   astro: { iconName: 'simple-icons:astro', label: 'Astro' },

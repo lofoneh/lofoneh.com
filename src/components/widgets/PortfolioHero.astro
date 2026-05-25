@@ -12,8 +12,8 @@ export interface Props {
 const {
   email = 'jeffery@lofoneh.com',
   name = 'Jeffery Lofoneh Asamani',
-  tagline = 'Backend engineer building reliable systems.',
-  primaryCTA = { href: '/work', text: 'view-work' },
+  tagline = 'Software engineer. Currently doing DevOps at Adaptive Computer Solutions — CI/CD, Kubernetes, observability.',
+  primaryCTA = { href: '/projects', text: 'view-projects' },
   secondaryCTA = { href: '/writing', text: 'read-writing' },
 } = Astro.props;
 ---
@@ -22,7 +22,6 @@ const {
   Home page hero. Email ID line on top (mono), big name, single-sentence tagline,
   two terminal CTAs. Default props give a working hero with zero config; pass
   overrides if reusing elsewhere later.
-  TODO: replace name / tagline / email when the real bio is ready (phase 8).
 -->
 <section class="mx-auto max-w-5xl px-4 pt-12 pb-16 sm:px-6 md:pt-20 md:pb-24 lg:px-8 lg:pt-28 lg:pb-32">
   <p class="mb-8 font-mono text-sm text-ink-2">~ {email}</p>
