@@ -1,0 +1,13 @@
+---
+export interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<!--
+  Horizontal divider between major sections.
+  Semantic <hr> for a11y; styled as a single rule in --rule.
+-->
+<hr class:list={['my-16 border-0 border-t border-rule md:my-24', className]} aria-hidden="true" />

@@ -1,5 +1,8 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
+import SectionLabel from '~/components/ui/SectionLabel.astro';
+import TerminalCTA from '~/components/ui/TerminalCTA.astro';
+import ASCIIRule from '~/components/ui/ASCIIRule.astro';
 
 const metadata = {
   title: 'Jeffery Lofoneh Asamani — Backend Engineer',
@@ -8,17 +11,27 @@ const metadata = {
 ---
 
 <!--
-  PHASE 1 STUB
-  Minimal homepage so the build passes after the template strip.
-  Phase 4 (feat/home) replaces this with PortfolioHero + work teaser
-  + about teaser + writing teaser. See:
-  docs/superpowers/specs/2026-05-24-portfolio-redesign-design.md §6 phase 4.
+  PHASE 2 STUB — exercising the new design tokens + primitives so we can verify
+  monochrome + Geist + terminal motifs work end-to-end before Phase 4 ships the
+  real composition. Phase 4 (feat/home) replaces this with PortfolioHero + work
+  teaser + about teaser + writing teaser.
+  See: docs/superpowers/specs/2026-05-24-portfolio-redesign-design.md §6 phase 4.
 -->
 <Layout metadata={metadata}>
-  <section class="mx-auto max-w-4xl px-6 py-24">
-    <p class="mb-4 font-mono text-sm text-gray-500">~ jeffery@lofoneh.com</p>
-    <h1 class="mb-4 text-5xl font-bold">Jeffery Lofoneh Asamani</h1>
-    <p class="mb-12 text-xl text-gray-600 dark:text-gray-300">Backend engineer. Building reliable systems.</p>
-    <p class="font-mono text-sm text-gray-500">[ phase 1 placeholder — full homepage lands in phase 4 ]</p>
+  <section class="mx-auto max-w-5xl px-4 pt-16 pb-12 sm:px-6 md:pt-24 md:pb-16 lg:px-8">
+    <p class="mb-6 font-mono text-sm text-ink-2">~ jeffery@lofoneh.com</p>
+    <h1 class="mb-4 text-4xl font-bold leading-tight text-ink sm:text-5xl md:text-6xl">Jeffery Lofoneh Asamani</h1>
+    <p class="mb-10 max-w-2xl text-lg text-ink-2 md:text-xl">Backend engineer. Building reliable systems.</p>
+    <div class="flex flex-wrap items-center gap-x-8 gap-y-3">
+      <TerminalCTA href="/work" text="view-work" />
+      <TerminalCTA href="/writing" text="read-writing" />
+    </div>
+  </section>
+
+  <ASCIIRule />
+
+  <section class="mx-auto max-w-5xl px-4 pb-24 sm:px-6 lg:px-8">
+    <SectionLabel text="status" class="mb-6" />
+    <p class="font-mono text-sm text-ink-3">[ phase 2 placeholder — full home composition lands in phase 4 ]</p>
   </section>
 </Layout>

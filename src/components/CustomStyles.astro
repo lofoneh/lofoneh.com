@@ -1,63 +1,64 @@
 ---
-import '@fontsource-variable/inter';
-
-// 'DM Sans'
-// Nunito
-// Dosis
-// Outfit
-// Roboto
-// Literata
-// 'IBM Plex Sans'
-// Karla
-// Poppins
-// 'Fira Sans'
-// 'Libre Franklin'
-// Inconsolata
-// Raleway
-// Oswald
-// 'Space Grotesk'
-// Urbanist
+import '@fontsource-variable/geist';
+import '@fontsource-variable/geist-mono';
 ---
 
 <style is:inline>
+  /*
+    Design tokens — see docs/superpowers/specs/2026-05-24-portfolio-redesign-design.md §4.
+    Monochrome, dark-first. `:root` holds light values; `.dark` overrides them.
+    `--aw-color-*` aliases keep legacy AstroWind utilities working off the new tokens.
+  */
+
   :root {
-    --aw-font-sans: 'Inter Variable';
-    --aw-font-serif: 'Inter Variable';
-    --aw-font-heading: 'Inter Variable';
+    /* Typography */
+    --aw-font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+    --aw-font-mono: 'Geist Mono Variable', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --aw-font-heading: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+    --aw-font-serif: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
 
-    --aw-color-primary: rgb(1 97 239);
-    --aw-color-secondary: rgb(1 84 207);
-    --aw-color-accent: rgb(109 40 217);
+    /* Monochrome (light mode) */
+    --ink: #0a0a0a;
+    --ink-2: #52525b;
+    --ink-3: #a1a1aa;
+    --surface: #fafafa;
+    --surface-2: #f4f4f5;
+    --rule: #e4e4e7;
 
-    --aw-color-text-heading: rgb(0 0 0);
-    --aw-color-text-default: rgb(16 16 16);
-    --aw-color-text-muted: rgb(16 16 16 / 66%);
-    --aw-color-bg-page: rgb(255 255 255);
-
-    --aw-color-bg-page-dark: rgb(3 6 32);
+    /* Legacy --aw-* aliases — keep old utilities working */
+    --aw-color-text-default: var(--ink);
+    --aw-color-text-muted: var(--ink-2);
+    --aw-color-text-heading: var(--ink);
+    --aw-color-bg-page: var(--surface);
+    --aw-color-bg-page-dark: var(--surface);
+    --aw-color-primary: var(--ink);
+    --aw-color-secondary: var(--ink);
+    --aw-color-accent: var(--ink);
 
     ::selection {
-      background-color: lavender;
+      background-color: var(--ink);
+      color: var(--surface);
     }
   }
 
   .dark {
-    --aw-font-sans: 'Inter Variable';
-    --aw-font-serif: 'Inter Variable';
-    --aw-font-heading: 'Inter Variable';
+    /* Monochrome (dark mode — default per config.yaml ui.theme) */
+    --ink: #fafafa;
+    --ink-2: #a1a1aa;
+    --ink-3: #52525b;
+    --surface: #0a0a0a;
+    --surface-2: #171717;
+    --rule: #27272a;
 
-    --aw-color-primary: rgb(1 97 239);
-    --aw-color-secondary: rgb(1 84 207);
-    --aw-color-accent: rgb(109 40 217);
-
-    --aw-color-text-heading: rgb(247, 248, 248);
-    --aw-color-text-default: rgb(229 236 246);
-    --aw-color-text-muted: rgb(229 236 246 / 66%);
-    --aw-color-bg-page: rgb(3 6 32);
+    --aw-color-text-default: var(--ink);
+    --aw-color-text-muted: var(--ink-2);
+    --aw-color-text-heading: var(--ink);
+    --aw-color-bg-page: var(--surface);
+    --aw-color-bg-page-dark: var(--surface);
 
     ::selection {
-      background-color: black;
-      color: snow;
+      background-color: var(--ink);
+      color: var(--surface);
     }
   }
 </style>

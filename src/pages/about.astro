@@ -1,5 +1,6 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
+import SectionLabel from '~/components/ui/SectionLabel.astro';
 
 const metadata = {
   title: 'About',
@@ -7,19 +8,19 @@ const metadata = {
 ---
 
 <!--
-  PHASE 1 STUB
+  PHASE 2 STUB
   Phase 5 (feat/about-page) replaces this with the real about page:
   bio, headshot, current stack, what-I'm-looking-for, contact links.
   See docs/superpowers/specs/2026-05-24-portfolio-redesign-design.md §6 phase 5.
 -->
 <Layout metadata={metadata}>
-  <section class="mx-auto max-w-3xl px-6 py-24">
-    <p class="mb-4 font-mono text-sm text-gray-500">~/about</p>
-    <h1 class="mb-6 text-4xl font-bold">About</h1>
-    <p class="mb-4 text-gray-600 dark:text-gray-300">
+  <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6 md:py-24 lg:px-8">
+    <SectionLabel text="about" class="mb-6" />
+    <h1 class="mb-8 text-3xl font-bold leading-tight text-ink sm:text-4xl">About</h1>
+    <p class="mb-4 text-ink-2">
       Placeholder about page — real bio, headshot, stack, and contact links land in phase 5.
     </p>
-    <p class="font-mono text-sm text-gray-500">
+    <p class="font-mono text-sm text-ink-3">
       <!-- TODO: drop real bio copy here when phase 5 starts -->
     </p>
   </section>
