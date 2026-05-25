@@ -1,6 +1,5 @@
 import { getPermalink, getBlogPermalink, getAsset } from './utils/permalinks';
 
-// TODO: replace placeholder URLs (GitHub, LinkedIn, email) with your real handles when ready.
 export const headerData = {
   links: [
     { text: 'Work', href: getPermalink('/work') },
