@@ -23,7 +23,7 @@ metadata:
         height: 628
     type: website
   twitter:
-    handle: '@lofoneh' # TODO: replace with your real handle (or remove if you don't use X)
+    handle: '@lofoneh'
     site: '@lofoneh'
     cardType: summary_large_image
 
