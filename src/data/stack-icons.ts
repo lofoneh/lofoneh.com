@@ -64,8 +64,10 @@ const STACK_MAP: Record<string, StackIcon> = {
   mongo: { iconName: 'simple-icons:mongodb', label: 'MongoDB' },
 
   // Protocols & infra
-  // gRPC has no Simple Icons logo — intentionally absent so it renders as
-  // mono text `[ grpc ]` via the fallback path.
+  // gRPC has no Simple Icons logo — using a local SVG at src/icons/grpc.svg
+  // (astro-icon auto-discovers files in src/icons/ and exposes them under the
+  // `local:` collection).
+  grpc: { iconName: 'local:grpc', label: 'gRPC' },
   nginx: { iconName: 'simple-icons:nginx', label: 'NGINX' },
   linux: { iconName: 'simple-icons:linux', label: 'Linux' },
 
