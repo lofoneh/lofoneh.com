@@ -124,9 +124,9 @@ const resolvedStack = stackCategories.map((cat) => ({
   <ASCIIRule />
 
   <!-- What I'm looking for -->
-  <section class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+  <section class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
     <SectionLabel text="looking-for" class="mb-6" />
-    <ul class="space-y-3 text-base leading-relaxed text-ink sm:text-lg">
+    <ul class="max-w-2xl space-y-3 text-base leading-relaxed text-ink sm:text-lg">
       {
         lookingFor.map((item) => (
           <li class="flex gap-3">
@@ -143,15 +143,17 @@ const resolvedStack = stackCategories.map((cat) => ({
   <ASCIIRule />
 
   <!-- Contact -->
-  <section class="mx-auto max-w-3xl px-4 pb-16 sm:px-6 md:pb-24 lg:px-8">
+  <section class="mx-auto max-w-5xl px-4 pb-16 sm:px-6 md:pb-24 lg:px-8">
     <SectionLabel text="contact" class="mb-6" />
-    <h2 class="mb-6 text-2xl font-bold leading-tight text-ink sm:text-3xl">Easiest ways to reach me.</h2>
-    <div class="flex flex-wrap gap-x-8 gap-y-3">
-      <TerminalCTA href="mailto:jefferyasamani7@gmail.com" text="email-me" />
-      <TerminalCTA href="/resume.pdf" text="resume.pdf" target="_blank" />
-      <TerminalCTA href="https://github.com/lofoneh" text="github" target="_blank" />
-      <TerminalCTA href="https://x.com/lofoneh" text="x" target="_blank" />
-      <TerminalCTA href="https://www.linkedin.com/in/jeffery-asamani/" text="linkedin" target="_blank" />
+    <div class="max-w-2xl">
+      <h2 class="mb-6 text-2xl font-bold leading-tight text-ink sm:text-3xl">Easiest ways to reach me.</h2>
+      <div class="flex flex-wrap gap-x-8 gap-y-3">
+        <TerminalCTA href="mailto:jefferyasamani7@gmail.com" text="email-me" />
+        <TerminalCTA href="/resume.pdf" text="resume.pdf" target="_blank" />
+        <TerminalCTA href="https://github.com/lofoneh" text="github" target="_blank" />
+        <TerminalCTA href="https://x.com/lofoneh" text="x" target="_blank" />
+        <TerminalCTA href="https://www.linkedin.com/in/jeffery-asamani/" text="linkedin" target="_blank" />
+      </div>
     </div>
   </section>
 </Layout>

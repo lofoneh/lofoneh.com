@@ -78,9 +78,9 @@ const formatDate = (d: Date) => d.toISOString().slice(0, 10);
   <ASCIIRule />
 
   <!-- ~/about teaser -->
-  <section class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+  <section class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
     <SectionLabel text="about" class="mb-6" />
-    <div class="space-y-4 text-base leading-relaxed text-ink sm:text-lg">
+    <div class="max-w-2xl space-y-4 text-base leading-relaxed text-ink sm:text-lg">
       <p>Hi, I'm Jeffery — a software engineer based in Accra, Ghana.</p>
       <p>
         I work on the boring, important layers of products: CI/CD pipelines, infrastructure automation, observability
@@ -127,16 +127,18 @@ const formatDate = (d: Date) => d.toISOString().slice(0, 10);
   <ASCIIRule />
 
   <!-- ~/contact final CTA -->
-  <section class="mx-auto max-w-3xl px-4 pb-16 sm:px-6 md:pb-24 lg:px-8">
+  <section class="mx-auto max-w-5xl px-4 pb-16 sm:px-6 md:pb-24 lg:px-8">
     <SectionLabel text="contact" class="mb-6" />
-    <h2 class="mb-6 text-2xl font-bold leading-tight text-ink sm:text-3xl">Want to work together?</h2>
-    <p class="mb-8 text-base leading-relaxed text-ink-2 sm:text-lg">
-      I'm open to software engineering roles — DevOps, infrastructure, or backend — and freelance work. Easiest ways to
-      reach me:
-    </p>
-    <div class="flex flex-wrap gap-x-8 gap-y-3">
-      <TerminalCTA href="mailto:jefferyasamani7@gmail.com" text="email-me" />
-      <TerminalCTA href="/resume.pdf" text="resume.pdf" target="_blank" />
+    <div class="max-w-2xl">
+      <h2 class="mb-6 text-2xl font-bold leading-tight text-ink sm:text-3xl">Want to work together?</h2>
+      <p class="mb-8 text-base leading-relaxed text-ink-2 sm:text-lg">
+        I'm open to software engineering roles — DevOps, infrastructure, or backend — and freelance work. Easiest ways
+        to reach me:
+      </p>
+      <div class="flex flex-wrap gap-x-8 gap-y-3">
+        <TerminalCTA href="mailto:jefferyasamani7@gmail.com" text="email-me" />
+        <TerminalCTA href="/resume.pdf" text="resume.pdf" target="_blank" />
+      </div>
     </div>
   </section>
 </Layout>
