@@ -1,0 +1,16 @@
+---
+export interface Props {
+  text: string;
+  class?: string;
+}
+
+const { text, class: className = '' } = Astro.props;
+---
+
+<!--
+  Renders a mono section label of the form: ~/work, ~/writing, ~/about, etc.
+  See docs/superpowers/specs/2026-05-24-portfolio-redesign-design.md §4 (Terminal motifs).
+-->
+<p class:list={['font-mono text-xs uppercase tracking-[0.1em] text-ink-2', className]}>
+  ~/{text}
+</p>
