@@ -1,144 +1,57 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '~/layouts/PageLayout.astro';
-import PortfolioHero from '~/components/widgets/PortfolioHero.astro';
-import SectionLabel from '~/components/ui/SectionLabel.astro';
-import TerminalCTA from '~/components/ui/TerminalCTA.astro';
-import ASCIIRule from '~/components/ui/ASCIIRule.astro';
-import WorkList from '~/components/widgets/WorkList.astro';
-
-import { featuredProjects } from '~/data/projects';
-import { roles } from '~/data/experience';
-import { findLatestPosts } from '~/utils/blog';
-import { getPermalink } from '~/utils/permalinks';
-
-const featured = featuredProjects(3);
-const latestPosts = await findLatestPosts({ count: 3 });
+import headshot from '~/assets/images/headshot.jpg';
 
 const metadata = {
   title: 'Jeffery Lofoneh Asamani — Software Engineer',
   ignoreTitleTemplate: true,
 };
-
-const formatDate = (d: Date) => d.toISOString().slice(0, 10);
 ---
 
-<!--
-  Home page composition.
-  Sections (in order, matching nav): hero → ~/experience teaser → ~/projects
-  teaser → ~/about teaser → ~/writing teaser → ~/contact final CTA.
-  Each section is its own block with ASCIIRule dividers. Content max-width
-  varies by section purpose: 5xl for cards / project lists, 3xl for prose-y
-  sections.
--->
 <Layout metadata={metadata}>
-  <PortfolioHero />
+  <section class="mx-auto max-w-3xl px-4 pt-8 pb-20 sm:px-6 md:pt-12 md:pb-28 lg:px-8">
+    <Image
+      src={headshot}
+      alt="Jeffery Lofoneh Asamani"
+      class="mb-10 w-36 grayscale transition-[filter] duration-500 hover:grayscale-0 sm:w-44 md:w-52"
+      widths={[200, 256, 320, 416]}
+      sizes="(min-width: 768px) 208px, (min-width: 640px) 176px, 144px"
+      format="webp"
+      loading="eager"
+    />
 
-  <ASCIIRule />
+    <h1 class="mb-10 text-3xl font-bold leading-tight text-ink sm:text-4xl md:text-5xl">
+      hi, i'm jeffery <span aria-hidden="true" class="motion-safe:animate-wave origin-[70%_70%] inline-block">👋</span>
+    </h1>
 
-  <!-- ~/experience teaser -->
-  <section class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-    <SectionLabel text="experience" class="mb-6" />
-    <p class="mb-6 font-mono text-sm text-ink-3">
-      Adaptive Computer Solutions <span class="text-ink-3">·</span> Accra, Ghana
-    </p>
-    <ol class="space-y-3 font-mono text-sm sm:text-base">
-      {
-        roles.map((role) => (
-          <li class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-            <span class="text-ink">{role.title}</span>
-            <span class="text-ink-3">
-              {role.start} — {role.end}
-            </span>
-          </li>
-        ))
-      }
-    </ol>
-    <div class="mt-10">
-      <TerminalCTA href="/experience" text="full-experience" />
-    </div>
-  </section>
-
-  <ASCIIRule />
-
-  <!-- ~/projects teaser -->
-  <section class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-    <SectionLabel text="projects" class="mb-8" />
-    {
-      featured.length > 0 ? (
-        <WorkList projects={featured} columns={1} />
-      ) : (
-        <p class="font-mono text-sm text-ink-3">[ no featured projects right now ]</p>
-      )
-    }
-    <div class="mt-10">
-      <TerminalCTA href="/projects" text="all-projects" />
-    </div>
-  </section>
-
-  <ASCIIRule />
-
-  <!-- ~/about teaser -->
-  <section class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-    <SectionLabel text="about" class="mb-6" />
-    <div class="max-w-2xl space-y-4 text-base leading-relaxed text-ink sm:text-lg">
-      <p>Hi, I'm Jeffery — a software engineer based in Accra, Ghana.</p>
+    <div class="space-y-6 text-base leading-relaxed text-ink sm:text-lg">
       <p>
-        I work on the boring, important layers of products: CI/CD pipelines, infrastructure automation, observability
-        tooling. Currently doing DevOps at Adaptive Computer Solutions.
+        i'm a software engineer from Ghana, currently working DevOps at Adaptive Computer Solutions. i care about
+        reliable systems, honest documentation, and shipping things that actually work.
       </p>
-      <p>I care about clear code, honest documentation, and shipping things that actually work.</p>
-    </div>
-    <div class="mt-8">
-      <TerminalCTA href="/about" text="more-about-me" />
-    </div>
-  </section>
 
-  <ASCIIRule />
-
-  <!-- ~/writing teaser -->
-  <section class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-    <SectionLabel text="writing" class="mb-8" />
-
-    {
-      latestPosts.length > 0 ? (
-        <ul class="divide-y divide-rule border-y border-rule">
-          {latestPosts.map((post) => (
-            <li>
-              <a
-                href={getPermalink(post.permalink, 'post')}
-                class="group flex flex-col gap-1 py-5 transition-colors hover:bg-surface-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6 sm:py-6"
-              >
-                <span class="text-base text-ink underline-offset-4 group-hover:underline sm:text-lg">{post.title}</span>
-                <span class="font-mono text-xs text-ink-3">{formatDate(post.publishDate)}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p class="font-mono text-sm text-ink-3">[ no posts yet — first one is in progress ]</p>
-      )
-    }
-
-    <div class="mt-10">
-      <TerminalCTA href="/writing" text="all-writing" />
-    </div>
-  </section>
-
-  <ASCIIRule />
-
-  <!-- ~/contact final CTA -->
-  <section class="mx-auto max-w-5xl px-4 pb-16 sm:px-6 md:pb-24 lg:px-8">
-    <SectionLabel text="contact" class="mb-6" />
-    <div class="max-w-2xl">
-      <h2 class="mb-6 text-2xl font-bold leading-tight text-ink sm:text-3xl">Want to work together?</h2>
-      <p class="mb-8 text-base leading-relaxed text-ink-2 sm:text-lg">
-        I'm open to software engineering roles — DevOps, infrastructure, or backend — and freelance work. Easiest ways
-        to reach me:
+      <p>
+        most of my day is spent in CI/CD pipelines, Kubernetes, observability tooling, and the kind of
+        infrastructure-as-code work that keeps production calm. i'm especially drawn to systems that feel boring from
+        the outside but are incredibly thoughtful underneath.
       </p>
-      <div class="flex flex-wrap gap-x-8 gap-y-3">
-        <TerminalCTA href="mailto:jefferyasamani7@gmail.com" text="email-me" />
-        <TerminalCTA href="/resume.pdf" text="resume.pdf" target="_blank" />
-      </div>
+
+      <p>
+        i came to software through the back door — my degree is in Metallurgical Engineering from KNUST, and i taught
+        myself to code afterwards. that path shows up in how i think: comfortable with messy real-world systems, patient
+        with debugging.
+      </p>
+
+      <p>
+        right now i'm picking up Ruby on Rails on a side project, exploring Pulumi for greenfield infra work, and
+        getting deeper into AI — especially LLMs and the MLOps side of running them in production.
+      </p>
+
+      <p>
+        in my downtime i'm watching movies and anime, listening to Gospel music, or messing around on my acoustic
+        guitar.
+      </p>
     </div>
   </section>
 </Layout>

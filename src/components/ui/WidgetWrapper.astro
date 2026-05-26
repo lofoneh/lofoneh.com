@@ -13,10 +13,6 @@ const { id, containerClass = '', as = 'section' } = Astro.props;
 const WrapperTag = as;
 ---
 
-<!--
-  Simplified wrapper. Sets max-width, responsive padding, vertical rhythm.
-  Drops the AstroWind bg/dark complexity — page bg is handled at the body level now.
--->
 <WrapperTag class="relative scroll-mt-20" {...id ? { id } : {}}>
   <div
     class:list={[

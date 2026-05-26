@@ -12,11 +12,7 @@ const { projects, columns = 2 } = Astro.props;
 const gridClass = columns === 1 ? 'grid grid-cols-1 gap-4 sm:gap-6' : 'grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2';
 ---
 
-<!--
-  Renders a list of projects as a responsive grid.
-  Mobile: single column. md+ (768px+): two columns by default.
-  Pass columns={1} for the home-page teaser if a single column reads better there.
--->{
+{
   projects.length > 0 ? (
     <div class={gridClass}>
       {projects.map((project) => (

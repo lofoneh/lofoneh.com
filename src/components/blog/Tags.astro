@@ -14,10 +14,7 @@ export interface Props {
 const { tags, class: className = '', title = undefined, isCategory = false } = Astro.props;
 ---
 
-<!--
-  Monochrome tag list. Mono lowercase chips in [ tag ] brackets, matching the
-  project-card stack language. Hover lifts to --ink.
--->{
+{
   tags && Array.isArray(tags) && tags.length > 0 && (
     <div class:list={[className]}>
       {title !== undefined && <span class="mr-3 font-mono text-xs uppercase tracking-[0.1em] text-ink-3">{title}</span>}

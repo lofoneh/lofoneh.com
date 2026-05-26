@@ -1,13 +1,12 @@
 /**
- * Projects shown on /projects and (the featured subset) on the home page.
+ * Projects shown on /projects.
  *
- * To add a new project: append an entry below. Pick a `status`:
+ * Pick a `status`:
  *   - 'shipped'   : built, in production / available
  *   - 'ongoing'   : currently being built
- *   - 'exploring' : on the roadmap, haven't started yet (acts as a "next up" tag)
+ *   - 'exploring' : on the roadmap, haven't started yet (a "next up" tag)
  *
- * To surface a project on the home page teaser, set `featured: true`.
- * Keep `slug` unique — we'll use it for per-project detail pages later if needed.
+ * Keep `slug` unique — used for per-project detail pages later if needed.
  */
 
 export type ProjectStatus = 'shipped' | 'ongoing' | 'exploring';
@@ -31,23 +30,48 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+  // ─── Real ─── (shipped / ongoing) ───
   {
-    slug: 'bitafrica-gift-card',
-    title: 'BitAfrica Gift Card Platform',
+    slug: 'giftbanc',
+    title: 'GiftBanc — Gift Card Platform',
     oneLiner:
-      'Deployment infrastructure for an e-commerce gift card platform — CI/CD pipeline, containerised stack, edge proxy.',
-    stack: ['docker', 'github-actions', 'digitalocean', 'traefik', 'ansible'],
-    role: 'DevOps engineer',
+      'CI/CD and hosting infrastructure for a live e-commerce gift card platform — containerised deployments, automated provisioning, and an edge proxy.',
+    stack: ['docker', 'ansible', 'traefik', 'github-actions', 'digitalocean'],
+    role: 'DevOps engineer (contract)',
     year: 2025,
-    status: 'ongoing',
+    status: 'shipped',
     links: {
       live: 'https://giftbanc.com/',
     },
     featured: true,
   },
+  {
+    slug: 'win-transport',
+    title: 'WIN Transport Services — Bus Booking Admin Portal',
+    oneLiner: 'Admin portal for a live bus-booking platform, built alongside another developer.',
+    stack: ['nextjs', 'typescript', 'prisma', 'zod', 'vercel'],
+    role: 'Full-stack engineer (contract)',
+    year: 2025,
+    status: 'shipped',
+    links: {
+      live: 'https://wintransportservices.com/',
+    },
+    featured: true,
+  },
+  {
+    slug: 'win-church',
+    title: 'WIN Church Administration App',
+    oneLiner:
+      'Multi-tenant church administration platform — role-based access, member and group management, attendance, and pastoral-insight reporting.',
+    stack: ['rails', 'hotwire', 'tailwindcss', 'daisyui', 'postgresql'],
+    role: 'Solo dev',
+    year: 2025,
+    status: 'ongoing',
+    links: {},
+    featured: true,
+  },
   // ─── Exploring / next up ───
-  // Dummy projects kept as roadmap teasers. Will become real entries (and flip
-  // `status` + add real links) as they get built.
+  // Dummy roadmap entries. Flip status + add real links when they get built.
   {
     slug: 'event-pipeline',
     title: 'Distributed Event Pipeline',

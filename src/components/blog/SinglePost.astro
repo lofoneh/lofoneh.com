@@ -1,7 +1,8 @@
 ---
 import Image from '~/components/common/Image.astro';
 import PostTags from '~/components/blog/Tags.astro';
-import SocialShare from '~/components/common/SocialShare.astro';
+import ShareButtons from '~/components/blog/ShareButtons.astro';
+import Comments from '~/components/blog/Comments.astro';
 import SectionLabel from '~/components/ui/SectionLabel.astro';
 
 import { getPermalink } from '~/utils/permalinks';
@@ -17,12 +18,7 @@ export interface Props {
 const { post, url } = Astro.props;
 ---
 
-<!--
-  Single post layout. Monochrome, reading-width-constrained body.
-  Spec: prose body capped at ~38rem; max-w-2xl ≈ 42rem is close enough.
-  Prose styles use prose-invert in dark; link colours collapse to underline.
--->
-<article class="mx-auto max-w-5xl px-4 pb-8 pt-12 sm:px-6 md:pt-20 lg:px-8">
+<article class="mx-auto max-w-5xl px-4 pb-8 pt-8 sm:px-6 md:pt-12 lg:px-8">
   <header class="mx-auto max-w-2xl">
     <SectionLabel text="writing" class="mb-4" />
 
@@ -90,6 +86,8 @@ const { post, url } = Astro.props;
 
   <footer class="mx-auto mt-10 flex max-w-2xl flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
     {post.tags && <PostTags tags={post.tags} />}
-    <SocialShare url={url} text={post.title} class="font-mono text-xs text-ink-3" />
+    <ShareButtons url={url} title={post.title} />
   </footer>
+
+  <Comments />
 </article>

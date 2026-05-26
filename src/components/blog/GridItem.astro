@@ -14,10 +14,6 @@ const { post } = Astro.props;
 const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : '';
 ---
 
-<!--
-  Compact post card used in the RelatedPosts grid.
-  Text-forward, no image, mono date, underline-on-hover title.
--->
 <article class="border border-rule p-5 transition-colors hover:border-ink sm:p-6">
   <p class="mb-3 font-mono text-xs text-ink-3">
     <time datetime={String(post.publishDate)}>{getFormattedDate(post.publishDate)}</time>

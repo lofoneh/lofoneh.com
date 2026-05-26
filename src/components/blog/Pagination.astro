@@ -11,10 +11,7 @@ export interface Props {
 const { prevUrl, nextUrl, prevText = 'newer-posts', nextText = 'older-posts' } = Astro.props;
 ---
 
-<!--
-  Monochrome pagination. Two terminal-styled links at the bottom of the list.
-  Disabled side is hidden entirely rather than greyed-out (cleaner than a ghost).
--->{
+{
   (prevUrl || nextUrl) && (
     <nav class="mt-12 flex flex-wrap items-center justify-between gap-4 font-mono text-sm">
       {prevUrl ? (

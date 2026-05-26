@@ -9,10 +9,6 @@ export interface Props {
 const { posts } = Astro.props;
 ---
 
-<!--
-  Responsive grid for related posts / latest posts on home.
-  Mobile: 1 col. sm: 2 cols. lg: still 2 cols (4 felt too cramped for monochrome cards).
--->
 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
   {posts.map((post) => <Item post={post} />)}
 </div>

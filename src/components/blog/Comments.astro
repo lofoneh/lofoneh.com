@@ -1,0 +1,57 @@
+---
+/**
+ * Giscus-powered reactions + comments on every blog post.
+ *
+ * Giscus uses GitHub Discussions as the backend — free, no visitor signup
+ * beyond their existing GitHub account, and you get likes/reactions
+ * (❤️🚀👍 etc.) AND threaded comments in one widget.
+ *
+ * Setup (one time):
+ *   1. Make sure github.com/lofoneh/lofoneh.com has Discussions enabled
+ *      (Settings → General → Features → Discussions).
+ *   2. Install the Giscus app: https://github.com/apps/giscus
+ *   3. Go to https://giscus.app and configure for this repo. Note down:
+ *        - data-repo-id
+ *        - data-category (create one named "Comments" or similar)
+ *        - data-category-id
+ *   4. Drop those three values into the constants below and remove the TODOs.
+ *
+ * Until configured, the script no-ops gracefully — no broken UI, just no widget.
+ */
+
+const REPO = 'lofoneh/lofoneh.com';
+const REPO_ID = ''; // TODO: paste from giscus.app
+const CATEGORY = 'Comments'; // TODO: confirm category name in your repo's Discussions
+const CATEGORY_ID = ''; // TODO: paste from giscus.app
+
+const configured = Boolean(REPO_ID && CATEGORY_ID);
+---
+
+{
+  configured ? (
+    <section aria-label="Comments" class="mx-auto mt-12 max-w-2xl">
+      <script
+        src="https://giscus.app/client.js"
+        data-repo={REPO}
+        data-repo-id={REPO_ID}
+        data-category={CATEGORY}
+        data-category-id={CATEGORY_ID}
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async
+        is:inline
+      />
+    </section>
+  ) : (
+    <section class="mx-auto mt-12 max-w-2xl font-mono text-xs text-ink-3" aria-label="Comments placeholder">
+      [ reactions and comments unlock once Giscus is configured — see Comments.astro for setup ]
+    </section>
+  )
+}

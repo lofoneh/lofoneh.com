@@ -1,60 +1,58 @@
 ---
-import { Icon } from 'astro-icon/components';
-
-interface Link {
-  text?: string;
-  href?: string;
-  ariaLabel?: string;
-  icon?: string;
-}
-
-interface Links {
-  title?: string;
-  links: Array<Link>;
+interface SocialLink {
+  text: string;
+  href: string;
 }
 
 export interface Props {
-  links?: Array<Links>;
-  secondaryLinks?: Array<Link>;
-  socialLinks?: Array<Link>;
+  socialLinks?: Array<SocialLink>;
+  tagline?: string;
   footNote?: string;
 }
 
-const { socialLinks = [], footNote = '' } = Astro.props;
+const { socialLinks = [], tagline = '', footNote = '' } = Astro.props;
 ---
 
 <!--
-  Minimal portfolio footer.
-  - Stacks vertically on mobile (socials over footnote).
-  - On md+, social icons left / footnote right.
-  - Drops the AstroWind link columns entirely (portfolio has no marketing nav).
+  Minimal text-link footer.
+  - Mobile: stacks vertically (socials block above tagline/copyright block).
+  - md+:    spreads horizontally — socials left, tagline/copyright right, bottom-aligned.
 -->
 <footer class="relative border-t border-rule">
   <div
-    class="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-12 sm:px-6 md:flex-row md:items-center md:justify-between md:gap-6 md:px-8"
+    class="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-12 sm:px-6 md:flex-row md:items-end md:justify-between md:gap-12 md:px-8"
   >
     {
-      socialLinks.length ? (
-        <ul class="flex flex-wrap items-center gap-1 sm:gap-2">
-          {socialLinks.map(({ ariaLabel, href, icon }) => (
-            <li>
-              <a
-                class="inline-flex h-11 w-11 items-center justify-center rounded text-ink-2 transition-colors hover:bg-surface-2 hover:text-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
-                aria-label={ariaLabel}
-                href={href}
-              >
-                {icon && <Icon name={icon} class="h-5 w-5" />}
-              </a>
-            </li>
-          ))}
-        </ul>
-      ) : null
+      socialLinks.length > 0 && (
+        <div>
+          <p class="mb-3 font-mono text-xs uppercase tracking-[0.1em] text-ink-2">find me</p>
+          <ul class="flex flex-wrap items-center gap-x-1 gap-y-2 font-mono text-sm text-ink">
+            {socialLinks.map((link, i) => (
+              <li class="flex items-center gap-1">
+                {i > 0 && (
+                  <span aria-hidden="true" class="text-ink-3">
+                    /
+                  </span>
+                )}
+                <a
+                  class="underline-offset-[6px] decoration-1 transition-colors hover:text-ink-2 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+                  href={link.href}
+                  {...(link.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                >
+                  {link.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
     }
 
     {
-      footNote && (
-        <div class="font-mono text-xs leading-relaxed text-ink-3">
-          <Fragment set:html={footNote} />
+      (tagline || footNote) && (
+        <div class="space-y-1 font-mono text-xs leading-relaxed text-ink-3 md:text-right">
+          {tagline && <p>{tagline}</p>}
+          {footNote && <p>{footNote}</p>}
         </div>
       )
     }

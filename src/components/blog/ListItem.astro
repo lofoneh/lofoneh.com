@@ -16,11 +16,6 @@ const { post } = Astro.props;
 const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : '';
 ---
 
-<!--
-  Blog list entry. Monochrome, text-forward (no hero image cards).
-  Layout: mono meta row → title (link) → excerpt → tags.
-  Hover: title underlines.
--->
 <article class="space-y-3 sm:space-y-4">
   <p class="font-mono text-xs text-ink-3">
     <time datetime={String(post.publishDate)}>{getFormattedDate(post.publishDate)}</time>

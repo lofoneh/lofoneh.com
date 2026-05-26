@@ -10,11 +10,6 @@ const { href, text, target, class: className = '' } = Astro.props;
 const externalAttrs = target ? { target, rel: 'noopener noreferrer' } : {};
 ---
 
-<!--
-  Primary CTA in terminal style: $ ./action-name
-  Use sparingly — the hero gets one or two of these; nothing else.
-  See docs/superpowers/specs/2026-05-24-portfolio-redesign-design.md §4 (Terminal motifs).
--->
 <a
   href={href}
   class:list={[
