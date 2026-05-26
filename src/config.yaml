@@ -4,7 +4,7 @@ site:
   base: '/'
   trailingSlash: false
 
-  googleSiteVerificationId: "false" # TODO: set when you claim the domain in Google Search Console
+  googleSiteVerificationId: 'false' # TODO: set when you claim the domain in Google Search Console
 
 # Default SEO metadata
 metadata:

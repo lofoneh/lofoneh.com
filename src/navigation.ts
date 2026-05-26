@@ -5,20 +5,21 @@ export const headerData = {
     { text: 'Experience', href: getPermalink('/experience') },
     { text: 'Projects', href: getPermalink('/projects') },
     { text: 'Writing', href: getBlogPermalink() },
-    { text: 'About', href: getPermalink('/about') },
   ],
   actions: [{ text: 'Resume', href: '/resume.pdf', target: '_blank' }],
 };
 
+// Footer surfaces "find me" text-link socials + tagline + copyright.
+// The Footer component renders these as text (not icons) — keep the order
+// consistent with how a reader would scan: most-active channels first.
 export const footerData = {
-  links: [],
-  secondaryLinks: [],
   socialLinks: [
-    { ariaLabel: 'GitHub', icon: 'tabler:brand-github', href: 'https://github.com/lofoneh' },
-    { ariaLabel: 'X (Twitter)', icon: 'tabler:brand-x', href: 'https://x.com/lofoneh' },
-    { ariaLabel: 'LinkedIn', icon: 'tabler:brand-linkedin', href: 'https://www.linkedin.com/in/jeffery-asamani/' },
-    { ariaLabel: 'Email', icon: 'tabler:mail', href: 'mailto:jefferyasamani7@gmail.com' },
-    { ariaLabel: 'RSS', icon: 'tabler:rss', href: getAsset('/rss.xml') },
+    { text: 'github', href: 'https://github.com/lofoneh' },
+    { text: 'linkedin', href: 'https://www.linkedin.com/in/jeffery-asamani/' },
+    { text: 'x', href: 'https://x.com/lofoneh' },
+    { text: 'email', href: 'mailto:jefferyasamani7@gmail.com' },
+    { text: 'rss', href: getAsset('/rss.xml') },
   ],
-  footNote: `© 2026 Jeffery Lofoneh Asamani.`,
+  tagline: 'building reliable systems & infrastructure',
+  footNote: '© 2026 | Jeffery Lofoneh Asamani',
 };
