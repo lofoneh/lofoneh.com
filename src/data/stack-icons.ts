@@ -91,16 +91,18 @@ const STACK_MAP: Record<string, StackIcon> = {
   tailwindcss: { iconName: 'simple-icons:tailwindcss', label: 'Tailwind CSS' },
   tailwind: { iconName: 'simple-icons:tailwindcss', label: 'Tailwind CSS' },
   daisyui: { iconName: 'simple-icons:daisyui', label: 'DaisyUI' },
-  django: { iconName: null, label: 'Django' }, // simple-icons removed Django's logo over branding policy; falls back to text
-  fastapi: { iconName: null, label: 'FastAPI' }, // same
+  django: { iconName: 'local:django', label: 'Django' },
+  fastapi: { iconName: 'local:fastapi', label: 'FastAPI' },
+  // Gin has no Simple Icons logo and the webp on gin-gonic.com isn't usable
+  // as an inline SVG. Falls back to mono text `[ gin ]` until a real SVG is dropped here.
   gin: { iconName: null, label: 'Gin' },
   hotwire: { iconName: 'simple-icons:hotwire', label: 'Hotwire' },
   pundit: { iconName: null, label: 'Pundit' },
 
   // Observability
   grafana: { iconName: 'simple-icons:grafana', label: 'Grafana' },
-  loki: { iconName: null, label: 'Loki' },
-  tempo: { iconName: null, label: 'Tempo' },
+  loki: { iconName: 'local:loki', label: 'Loki' },
+  tempo: { iconName: 'local:tempo', label: 'Tempo' },
   prometheus: { iconName: 'simple-icons:prometheus', label: 'Prometheus' },
   opentelemetry: { iconName: 'simple-icons:opentelemetry', label: 'OpenTelemetry' },
   otel: { iconName: 'simple-icons:opentelemetry', label: 'OpenTelemetry' },
