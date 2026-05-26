@@ -9,10 +9,7 @@ export interface Props {
 const { posts } = Astro.props;
 ---
 
-<!--
-  Vertical post list with hairline dividers between entries.
-  Tighter spacing than the old design (no big mb-20 gaps).
--->{
+{
   posts.length > 0 ? (
     <ul class="divide-y divide-rule border-y border-rule">
       {posts.map((post) => (

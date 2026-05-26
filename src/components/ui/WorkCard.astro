@@ -12,16 +12,10 @@ const { title, oneLiner, stack, role, year, links, status } = project;
 
 const stackEntries = stack.map((slug) => ({ slug, ...resolveStackIcon(slug) }));
 
-// "shipped" reads as the default state — no badge.
-// "ongoing" and "exploring" get a small mono tag in the meta row.
+// "shipped" is the default — no status badge; only ongoing/exploring tag in meta row.
 const statusTag = status === 'shipped' ? null : status;
 ---
 
-<!--
-  Single project card. Monochrome, hairline border, hover lifts border to --ink.
-  Layout (top → bottom): meta line (year · role) → title → one-liner → stack icons → link row.
-  Icons come from Simple Icons via astro-icon; unknown stack slugs fall back to mono text.
--->
 <article
   class="group flex flex-col gap-5 border border-rule p-6 transition-colors duration-200 hover:border-ink sm:gap-6 sm:p-8"
 >

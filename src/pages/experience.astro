@@ -19,10 +19,6 @@ const resolvedSkills = skills.map((cat) => ({
 }));
 ---
 
-<!--
-  /experience — career timeline + skills + education + certifications.
-  Source of truth is src/data/experience.ts — keep that file in sync with the resume.
--->
 <Layout metadata={metadata}>
   <section class="mx-auto max-w-5xl px-4 pt-8 pb-8 sm:px-6 md:pt-12 md:pb-12 lg:px-8">
     <SectionLabel text="experience" class="mb-6" />
@@ -40,7 +36,6 @@ const resolvedSkills = skills.map((cat) => ({
 
   <ASCIIRule />
 
-  <!-- Career roles -->
   <section class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
     <ol class="space-y-10 sm:space-y-12">
       {
@@ -79,7 +74,6 @@ const resolvedSkills = skills.map((cat) => ({
 
   <ASCIIRule />
 
-  <!-- Skills -->
   <section class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
     <SectionLabel text="skills" class="mb-8" />
     <dl class="space-y-6 sm:space-y-8">
@@ -113,7 +107,6 @@ const resolvedSkills = skills.map((cat) => ({
 
   <ASCIIRule />
 
-  <!-- Education -->
   <section class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
     <SectionLabel text="education" class="mb-6" />
     <ul class="space-y-6">
@@ -140,7 +133,6 @@ const resolvedSkills = skills.map((cat) => ({
 
   <ASCIIRule />
 
-  <!-- Certifications -->
   <section class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
     <SectionLabel text="certifications" class="mb-6" />
     <ul class="space-y-3 text-base leading-relaxed text-ink sm:text-lg">
@@ -161,7 +153,6 @@ const resolvedSkills = skills.map((cat) => ({
 
   <ASCIIRule />
 
-  <!-- Final CTA -->
   <section class="mx-auto max-w-5xl px-4 pb-16 sm:px-6 md:pb-24 lg:px-8">
     <SectionLabel text="contact" class="mb-6" />
     <div class="max-w-2xl">

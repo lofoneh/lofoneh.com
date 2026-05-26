@@ -14,11 +14,6 @@ const real = projects.filter((p) => p.status !== 'exploring');
 const exploring = projects.filter((p) => p.status === 'exploring');
 ---
 
-<!--
-  /projects — the full project list.
-  Real (shipped + ongoing) projects render first, exploring next.
-  Drop new projects into src/data/projects.ts; they appear here automatically.
--->
 <Layout metadata={metadata}>
   <section class="mx-auto max-w-5xl px-4 pt-8 pb-8 sm:px-6 md:pt-12 md:pb-12 lg:px-8">
     <SectionLabel text="projects" class="mb-6" />
