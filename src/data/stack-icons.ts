@@ -93,9 +93,7 @@ const STACK_MAP: Record<string, StackIcon> = {
   daisyui: { iconName: 'simple-icons:daisyui', label: 'DaisyUI' },
   django: { iconName: 'local:django', label: 'Django' },
   fastapi: { iconName: 'local:fastapi', label: 'FastAPI' },
-  // Gin has no Simple Icons logo and the webp on gin-gonic.com isn't usable
-  // as an inline SVG. Falls back to mono text `[ gin ]` until a real SVG is dropped here.
-  gin: { iconName: null, label: 'Gin' },
+  gin: { iconName: 'local:gin', label: 'Gin' },
   hotwire: { iconName: 'simple-icons:hotwire', label: 'Hotwire' },
   pundit: { iconName: null, label: 'Pundit' },
 

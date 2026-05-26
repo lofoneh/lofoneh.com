@@ -15,9 +15,11 @@ i'd quietly known for years that i wasn't going to be a metallurgical engineer. 
 
 then one afternoon i watched my friend [Ephraim](https://github.com/ephraimduncan) write code.
 
-Ephraim — a senior software engineer i've known and looked up to for a long time — was sitting at his laptop, building a product. it wasn't a tutorial. it wasn't a "from zero" guide. he was solving a real problem in real time, turning thoughts into working software while i sat next to him. something about watching it happen — the focus, the directness of it, the way an idea became a running thing — flipped a switch in my head.
+Ephraim — a senior software engineer i've known and looked up to for a long time — was at his laptop, working. building a product. solving a real problem in real time. i was just sitting there next to him, and something about watching it happen — the focus, the directness of it, the way an idea became a running thing — flipped a switch in my head.
 
 i resolved that day to do this for real. and i haven't turned back since.
+
+after graduation i was posted back to KNUST as a research assistant — Ghana's mandatory year of national service. it gave me something i hadn't had in school: time on the side, and for the first time, real intent. between research tasks and after hours, i started studying.
 
 the next fifteen months were quiet and hard. self-learning is its own kind of work — you bump into the same wall a thousand times without anyone telling you which way the door is. i picked up Python, then Go because the internet said it was good for systems work. i poked at AWS, Docker, Linux. i built things i didn't finish. i finished things that didn't matter. but i kept going.
 
@@ -31,4 +33,4 @@ the non-CS background still shows up in my work, and almost always for the bette
 
 i'm content with where i am, and hungrier than ever for what's next. the rise of AI and autonomous systems is the most interesting thing i've watched the industry do in years, and i want to be in the rooms where it gets built right — reliably, observably, and with a little bit of taste.
 
-and i'm grateful Ephraim left his laptop open that day.
+and i'm grateful for that afternoon next to Ephraim.

@@ -18,7 +18,7 @@ metadata:
   openGraph:
     site_name: Lofoneh
     images:
-      - url: '~/assets/images/default.png' # TODO: replace with a real OG image in phase 7
+      - url: '~/assets/images/og-default.png'
         width: 1200
         height: 628
     type: website
