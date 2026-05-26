@@ -54,7 +54,7 @@ Vercel auto-detects Astro, builds with `bun run build`, and serves from a global
 
 [![Deploy to PandaStack](https://dashboard.pandastack.io/deploy-button.svg)](https://dashboard.pandastack.io/deploy?repo=lofoneh/lofoneh.com&type=static&buildCmd=npm+run+build&outputDir=dist)
 
-Static build, output directory `dist`, build command `npm run build`. PandaStack's build container ships Node + npm but not Bun, so the deploy uses `npm run build` (which calls the same `astro build` script under the hood — no Bun required at build time). The `.nvmrc` in the repo pins Node 22, which Astro 6 requires.
+Static build, output directory `dist`, build command `npm run build`. PandaStack's build container ships Node + npm but not Bun, so the deploy uses `npm run build` (which calls the same `astro build` script under the hood — no Bun required at build time). PandaStack does **not** read `.nvmrc`, so set the Node version to **22** in the project's dashboard settings (or an env var `NODE_VERSION=22`) — Astro 6 requires Node ≥ 22.12.0. If you're updating an existing project rather than deploying fresh, also change its build command from any Bun-based value to `npm run build` in the dashboard, since the deploy button only sets that for new projects.
 
 ## Credits
 
