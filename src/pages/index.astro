@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '~/layouts/PageLayout.astro';
+import headshot from '~/assets/images/headshot.jpg';
 
 const metadata = {
   title: 'Jeffery Lofoneh Asamani — Software Engineer',
@@ -7,16 +9,20 @@ const metadata = {
 };
 ---
 
-<!--
-  Home page = long-form bio in the bennett-eghan.com style.
-  All capitalised words below are deliberate (proper nouns, technologies,
-  acronyms); everything else stays lowercase for a casual, plainspoken tone.
-  Replace the downtime line if your hobbies change.
--->
 <Layout metadata={metadata}>
   <section class="mx-auto max-w-3xl px-4 pt-8 pb-20 sm:px-6 md:pt-12 md:pb-28 lg:px-8">
+    <Image
+      src={headshot}
+      alt="Jeffery Lofoneh Asamani"
+      class="mb-10 w-36 grayscale transition-[filter] duration-500 hover:grayscale-0 sm:w-44 md:w-52"
+      widths={[200, 256, 320, 416]}
+      sizes="(min-width: 768px) 208px, (min-width: 640px) 176px, 144px"
+      format="webp"
+      loading="eager"
+    />
+
     <h1 class="mb-10 text-3xl font-bold leading-tight text-ink sm:text-4xl md:text-5xl">
-      hi, i'm jeffery <span aria-hidden="true" class="inline-block motion-safe:animate-wave origin-[70%_70%]">👋</span>
+      hi, i'm jeffery <span aria-hidden="true" class="motion-safe:animate-wave origin-[70%_70%] inline-block">👋</span>
     </h1>
 
     <div class="space-y-6 text-base leading-relaxed text-ink sm:text-lg">
@@ -37,7 +43,10 @@ const metadata = {
         with debugging.
       </p>
 
-      <p>right now i'm picking up Ruby on Rails on a side project and exploring Pulumi for greenfield infra work.</p>
+      <p>
+        right now i'm picking up Ruby on Rails on a side project, exploring Pulumi for greenfield infra work, and
+        getting deeper into AI — especially LLMs and the MLOps side of running them in production.
+      </p>
 
       <p>
         in my downtime i'm watching movies and anime, listening to Gospel music, or messing around on my acoustic

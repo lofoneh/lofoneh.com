@@ -1,0 +1,54 @@
+---
+export interface Props {
+  url: string | URL;
+  title: string;
+}
+
+const { url, title } = Astro.props;
+const urlString = url.toString();
+const enc = (s: string) => encodeURIComponent(s);
+const xHref = `https://twitter.com/intent/tweet?url=${enc(urlString)}&text=${enc(title)}`;
+const linkedinHref = `https://www.linkedin.com/sharing/share-offsite/?url=${enc(urlString)}`;
+---
+
+<div class="flex flex-wrap items-center gap-x-1 gap-y-2 font-mono text-xs text-ink-2" data-share-buttons>
+  <span class="mr-2 uppercase tracking-[0.1em] text-ink-3">share</span>
+  <a
+    class="px-2 py-1 underline-offset-[6px] decoration-1 transition-colors hover:text-ink hover:underline"
+    href={xHref}
+    target="_blank"
+    rel="noopener noreferrer">x</a
+  >
+  <span aria-hidden="true" class="text-ink-3">/</span>
+  <a
+    class="px-2 py-1 underline-offset-[6px] decoration-1 transition-colors hover:text-ink hover:underline"
+    href={linkedinHref}
+    target="_blank"
+    rel="noopener noreferrer">linkedin</a
+  >
+  <span aria-hidden="true" class="text-ink-3">/</span>
+  <button
+    type="button"
+    class="cursor-pointer px-2 py-1 underline-offset-[6px] decoration-1 transition-colors hover:text-ink hover:underline"
+    data-copy-link={urlString}>copy-link</button
+  >
+</div>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy-link]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const url = btn.getAttribute('data-copy-link');
+      if (!url) return;
+      try {
+        await navigator.clipboard.writeText(url);
+        const original = btn.textContent;
+        btn.textContent = 'copied';
+        setTimeout(() => {
+          btn.textContent = original;
+        }, 1500);
+      } catch {
+        /* clipboard refused; surface nothing rather than a broken UX */
+      }
+    });
+  });
+</script>
