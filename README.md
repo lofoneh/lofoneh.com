@@ -44,17 +44,9 @@ See [AGENTS.md](./AGENTS.md) for the architecture overview (virtual config modul
 
 ## Deploy
 
-### Vercel (recommended)
-
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Flofoneh%2Flofoneh.com)
 
 Vercel auto-detects Astro, builds with `bun run build`, and serves from a global edge network. The free tier covers personal-portfolio traffic comfortably, and preview deployments on every PR make iterating painless. Point a custom domain at the project under **Settings → Domains**.
-
-### PandaStack (alternative)
-
-[![Deploy to PandaStack](https://dashboard.pandastack.io/deploy-button.svg)](https://dashboard.pandastack.io/deploy?repo=lofoneh/lofoneh.com&type=static&buildCmd=npm+run+build&outputDir=dist)
-
-Static build, output directory `dist`, build command `npm run build`. PandaStack's build container ships Node + npm but not Bun, so the deploy uses `npm run build` (which calls the same `astro build` script under the hood — no Bun required at build time). PandaStack does **not** read `.nvmrc`, so set the Node version to **22** in the project's dashboard settings (or an env var `NODE_VERSION=22`) — Astro 6 requires Node ≥ 22.12.0. If you're updating an existing project rather than deploying fresh, also change its build command from any Bun-based value to `npm run build` in the dashboard, since the deploy button only sets that for new projects.
 
 ## Credits
 
