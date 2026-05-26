@@ -71,37 +71,14 @@ export const projects: Project[] = [
     featured: true,
   },
   // ─── Exploring / next up ───
-  // Dummy roadmap entries. Flip status + add real links when they get built.
   {
-    slug: 'event-pipeline',
-    title: 'Distributed Event Pipeline',
+    slug: 'devops-paas',
+    title: 'DevOps PaaS',
     oneLiner:
-      'High-throughput event ingestion pipeline processing millions of events per day across Azure regions, with at-least-once delivery semantics.',
-    stack: ['go', 'kafka', 'kubernetes', 'terraform', 'azure'],
-    role: 'Backend engineer',
-    year: 2025,
-    status: 'exploring',
-    links: {},
-  },
-  {
-    slug: 'cluster-lifecycle-cli',
-    title: 'Cluster Lifecycle CLI',
-    oneLiner:
-      'Internal command-line tool that spins up, configures, and tears down ephemeral Kubernetes clusters for CI test runs.',
-    stack: ['python', 'helm', 'kubernetes', 'azure-devops'],
-    role: 'Solo dev',
-    year: 2025,
-    status: 'exploring',
-    links: {},
-  },
-  {
-    slug: 'realtime-metrics',
-    title: 'Realtime Metrics Service',
-    oneLiner:
-      'Backend service exposing realtime metrics over a gRPC streaming API. Building in the open while learning Rust.',
-    stack: ['rust', 'grpc', 'postgres', 'aws'],
-    role: 'Solo dev · learning project',
-    year: 2025,
+      'A push-to-deploy platform for African builders — managed CI/CD, container orchestration, observability, and databases in one opinionated stack. In planning with a small founding team.',
+    stack: ['go', 'kubernetes', 'terraform', 'postgresql', 'docker'],
+    role: 'Co-founder · infra lead',
+    year: 2026,
     status: 'exploring',
     links: {},
   },
