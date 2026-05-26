@@ -51,7 +51,7 @@ export const projects: Project[] = [
     oneLiner: 'Admin portal for a live bus-booking platform, built alongside another developer.',
     stack: ['nextjs', 'typescript', 'prisma', 'zod', 'vercel'],
     role: 'Full-stack engineer (contract)',
-    year: 2025,
+    year: 2026,
     status: 'shipped',
     links: {
       live: 'https://wintransportservices.com/',
@@ -65,17 +65,17 @@ export const projects: Project[] = [
       'Multi-tenant church administration platform — role-based access, member and group management, attendance, and pastoral-insight reporting.',
     stack: ['rails', 'hotwire', 'tailwindcss', 'daisyui', 'postgresql'],
     role: 'Solo dev',
-    year: 2025,
+    year: 2026,
     status: 'ongoing',
     links: {},
     featured: true,
   },
   // ─── Exploring / next up ───
   {
-    slug: 'devops-paas',
-    title: 'DevOps PaaS',
+    slug: 'collage',
+    title: 'Collage',
     oneLiner:
-      'A push-to-deploy platform for African builders — managed CI/CD, container orchestration, observability, and databases in one opinionated stack. In planning with a small founding team.',
+      'A push-to-deploy DevOps PaaS for African builders — managed CI/CD, container orchestration, observability, and databases in one opinionated stack. In planning with a small founding team.',
     stack: ['go', 'kubernetes', 'terraform', 'postgresql', 'docker'],
     role: 'Co-founder · infra lead',
     year: 2026,
