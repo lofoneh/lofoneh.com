@@ -1,21 +1,14 @@
 ---
-import { ANALYTICS } from 'astrowind:config';
-
-const id = ANALYTICS?.vendors?.googleAnalytics?.id ? String(ANALYTICS.vendors.googleAnalytics.id) : '';
-const partytown = !!ANALYTICS?.vendors?.googleAnalytics?.partytown;
-const scriptType = partytown ? 'text/partytown' : undefined;
+/**
+ * Vercel Web Analytics + Speed Insights.
+ * Both packages ship a small inline script that pings Vercel's edge — no
+ * cookies, no PII, GDPR-friendly. Stats only show up once you enable the
+ * matching feature in the Vercel project dashboard, but it's safe to ship
+ * the scripts before that — they no-op until enabled server-side.
+ */
+import Analytics from '@vercel/analytics/astro';
+import SpeedInsights from '@vercel/speed-insights/astro';
 ---
 
-{id && <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${id}`} type={scriptType} />}
-
-<script is:inline id="ga-init" data-id={id} type={id ? scriptType : undefined}>
-  if (document.getElementById('ga-init').dataset.id) {
-    var d = document.getElementById('ga-init').dataset.id;
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = function () {
-      dataLayer.push(arguments);
-    };
-    window.gtag('js', new Date());
-    window.gtag('config', d);
-  }
-</script>
+<Analytics />
+<SpeedInsights />
