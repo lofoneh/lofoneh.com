@@ -1,17 +1,17 @@
 site:
   name: Lofoneh
-  site: 'https://lofoneh.com'
+  site: 'https://lofoneh.vercel.app' # TODO: update when you have a custom domain
   base: '/'
   trailingSlash: false
 
-  googleSiteVerificationId: false # TODO: set when you claim the domain in Google Search Console
+  googleSiteVerificationId: "false" # TODO: set when you claim the domain in Google Search Console
 
 # Default SEO metadata
 metadata:
   title:
     default: Jeffery Lofoneh Asamani
     template: '%s — Jeffery Lofoneh Asamani'
-  description: 'Personal portfolio of Jeffery Lofoneh Asamani — backend engineer building reliable systems.'
+  description: 'Personal portfolio of Jeffery Lofoneh Asamani — backend & devops engineer building reliable systems.'
   robots:
     index: true
     follow: true
