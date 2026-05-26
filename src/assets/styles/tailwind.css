@@ -29,6 +29,7 @@
   --font-serif: 'var(--aw-font-serif, ui-serif)', ui-serif, Georgia, serif;
 
   --animate-fade: fadeInUp 1s both;
+  --animate-wave: wave 2.2s ease-in-out 1s 3;
 
   @keyframes fadeInUp {
     0% {
@@ -38,6 +39,28 @@
     100% {
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+
+  @keyframes wave {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    15% {
+      transform: rotate(-14deg);
+    }
+    30% {
+      transform: rotate(12deg);
+    }
+    45% {
+      transform: rotate(-10deg);
+    }
+    60% {
+      transform: rotate(8deg);
+    }
+    75% {
+      transform: rotate(-4deg);
     }
   }
 }
