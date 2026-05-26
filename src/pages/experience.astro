@@ -1,35 +1,40 @@
 ---
+import { Icon } from 'astro-icon/components';
+
 import Layout from '~/layouts/PageLayout.astro';
 import SectionLabel from '~/components/ui/SectionLabel.astro';
 import TerminalCTA from '~/components/ui/TerminalCTA.astro';
 import ASCIIRule from '~/components/ui/ASCIIRule.astro';
-import { roles, education, certifications } from '~/data/experience';
+import { roles, skills, education, certifications } from '~/data/experience';
+import { resolveStackIcon } from '~/data/stack-icons';
 
 const metadata = {
   title: 'Experience',
-  description: 'Career history, education, and certifications.',
+  description: 'Career history, skills, education, and certifications.',
 };
+
+const resolvedSkills = skills.map((cat) => ({
+  label: cat.label,
+  items: cat.items.map((it) => ({ slug: it.slug, learning: it.learning ?? false, ...resolveStackIcon(it.slug) })),
+}));
 ---
 
 <!--
-  /experience — career timeline + education + certifications.
+  /experience — career timeline + skills + education + certifications.
   Source of truth is src/data/experience.ts — keep that file in sync with the resume.
 -->
 <Layout metadata={metadata}>
-  <!-- Page header -->
   <section class="mx-auto max-w-5xl px-4 pt-12 pb-8 sm:px-6 md:pt-20 md:pb-12 lg:px-8">
     <SectionLabel text="experience" class="mb-6" />
     <h1 class="mb-4 text-3xl font-bold leading-tight text-ink sm:text-4xl md:text-5xl">Where I've worked.</h1>
     <p class="max-w-2xl text-base text-ink-2 sm:text-lg">
-      A short career timeline. For the longer paper trail,
+      A short career timeline, the stack i work with, and a couple of credentials. For the formatted-PDF version,
       <a
         class="underline underline-offset-4 hover:text-ink-2"
         href="/resume.pdf"
         target="_blank"
-        rel="noopener noreferrer"
-      >
-        grab the resume PDF.
-      </a>
+        rel="noopener noreferrer">grab the resume</a
+      >.
     </p>
   </section>
 
@@ -46,22 +51,64 @@ const metadata = {
             </p>
             <h2 class="mb-1 text-xl font-semibold leading-tight text-ink sm:text-2xl">{role.title}</h2>
             <p class="mb-5 text-sm text-ink-2 sm:text-base">
-              {role.company} <span class="text-ink-3">·</span> {role.location}
+              {role.company}
+              {role.location && (
+                <>
+                  {' '}
+                  <span class="text-ink-3">·</span> {role.location}
+                </>
+              )}
             </p>
-            <ul class="space-y-2 text-sm leading-relaxed text-ink sm:text-base">
-              {role.bullets.map((b) => (
-                <li class="flex gap-3">
-                  <span aria-hidden="true" class="select-none font-mono text-ink-3">
-                    ·
-                  </span>
-                  <span>{b}</span>
-                </li>
-              ))}
-            </ul>
+            {role.bullets.length > 0 && (
+              <ul class="space-y-2 text-sm leading-relaxed text-ink sm:text-base">
+                {role.bullets.map((b) => (
+                  <li class="flex gap-3">
+                    <span aria-hidden="true" class="select-none font-mono text-ink-3">
+                      ·
+                    </span>
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </li>
         ))
       }
     </ol>
+  </section>
+
+  <ASCIIRule />
+
+  <!-- Skills -->
+  <section class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+    <SectionLabel text="skills" class="mb-8" />
+    <dl class="space-y-6 sm:space-y-8">
+      {
+        resolvedSkills.map((cat) => (
+          <div class="grid grid-cols-1 gap-3 sm:grid-cols-[minmax(0,200px)_minmax(0,1fr)] sm:items-center sm:gap-6">
+            <dt class="font-mono text-xs uppercase tracking-[0.1em] text-ink-2">{cat.label}</dt>
+            <dd>
+              <ul class="flex flex-wrap items-center gap-x-5 gap-y-3 text-ink-2">
+                {cat.items.map((item) => (
+                  <li
+                    class="inline-flex items-center gap-2 transition-colors hover:text-ink"
+                    aria-label={item.label}
+                    title={item.label}
+                  >
+                    {item.iconName ? (
+                      <Icon name={item.iconName} class="h-5 w-5" aria-hidden="true" />
+                    ) : (
+                      <span class="font-mono text-xs text-ink-3">[ {item.label.toLowerCase()} ]</span>
+                    )}
+                    {item.learning && <span class="font-mono text-xs text-ink-3">(learning)</span>}
+                  </li>
+                ))}
+              </ul>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
   </section>
 
   <ASCIIRule />
@@ -120,8 +167,7 @@ const metadata = {
     <div class="max-w-2xl">
       <h2 class="mb-6 text-2xl font-bold leading-tight text-ink sm:text-3xl">Want to work together?</h2>
       <p class="mb-8 text-base leading-relaxed text-ink-2 sm:text-lg">
-        I'm open to software engineering roles — DevOps, infrastructure, or backend — and freelance work. Easiest ways
-        to reach me:
+        I'm open to software engineering roles — DevOps, infrastructure, or backend — and freelance work.
       </p>
       <div class="flex flex-wrap gap-x-8 gap-y-3">
         <TerminalCTA href="mailto:jefferyasamani7@gmail.com" text="email-me" />

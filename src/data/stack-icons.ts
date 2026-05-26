@@ -77,6 +77,41 @@ const STACK_MAP: Record<string, StackIcon> = {
 
   // Frameworks
   astro: { iconName: 'simple-icons:astro', label: 'Astro' },
+  ruby: { iconName: 'simple-icons:ruby', label: 'Ruby' },
+  rails: { iconName: 'simple-icons:rubyonrails', label: 'Ruby on Rails' },
+  'ruby-on-rails': { iconName: 'simple-icons:rubyonrails', label: 'Ruby on Rails' },
+  rubyonrails: { iconName: 'simple-icons:rubyonrails', label: 'Ruby on Rails' },
+  nextjs: { iconName: 'simple-icons:nextdotjs', label: 'Next.js' },
+  'next.js': { iconName: 'simple-icons:nextdotjs', label: 'Next.js' },
+  next: { iconName: 'simple-icons:nextdotjs', label: 'Next.js' },
+  react: { iconName: 'simple-icons:react', label: 'React' },
+  prisma: { iconName: 'simple-icons:prisma', label: 'Prisma' },
+  zod: { iconName: 'simple-icons:zod', label: 'Zod' },
+  vercel: { iconName: 'simple-icons:vercel', label: 'Vercel' },
+  tailwindcss: { iconName: 'simple-icons:tailwindcss', label: 'Tailwind CSS' },
+  tailwind: { iconName: 'simple-icons:tailwindcss', label: 'Tailwind CSS' },
+  daisyui: { iconName: 'simple-icons:daisyui', label: 'DaisyUI' },
+  django: { iconName: null, label: 'Django' }, // simple-icons removed Django's logo over branding policy; falls back to text
+  fastapi: { iconName: null, label: 'FastAPI' }, // same
+  gin: { iconName: null, label: 'Gin' },
+  hotwire: { iconName: 'simple-icons:hotwire', label: 'Hotwire' },
+  pundit: { iconName: null, label: 'Pundit' },
+
+  // Observability
+  grafana: { iconName: 'simple-icons:grafana', label: 'Grafana' },
+  loki: { iconName: null, label: 'Loki' },
+  tempo: { iconName: null, label: 'Tempo' },
+  prometheus: { iconName: 'simple-icons:prometheus', label: 'Prometheus' },
+  opentelemetry: { iconName: 'simple-icons:opentelemetry', label: 'OpenTelemetry' },
+  otel: { iconName: 'simple-icons:opentelemetry', label: 'OpenTelemetry' },
+  'uptime-kuma': { iconName: 'simple-icons:uptimekuma', label: 'Uptime Kuma' },
+  uptimekuma: { iconName: 'simple-icons:uptimekuma', label: 'Uptime Kuma' },
+
+  // .NET stack
+  csharp: { iconName: 'simple-icons:csharp', label: 'C#' },
+  'c#': { iconName: 'simple-icons:csharp', label: 'C#' },
+  dotnet: { iconName: 'simple-icons:dotnet', label: '.NET' },
+  '.net': { iconName: 'simple-icons:dotnet', label: '.NET' },
 };
 
 export function resolveStackIcon(slug: string): StackIcon {
