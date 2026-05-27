@@ -27,7 +27,5 @@ pnpm-lock.yaml
 CLAUDE.md
 .claude/
 
-# Local-only editor + agent config and design docs
+# Local-only editor config
 .vscode/
-.agents/
-docs/
