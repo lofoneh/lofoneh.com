@@ -26,3 +26,6 @@ pnpm-lock.yaml
 # Local-only Claude Code instructions
 CLAUDE.md
 .claude/
+
+# Local-only editor config
+.vscode/
