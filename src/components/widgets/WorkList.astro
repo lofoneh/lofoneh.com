@@ -15,8 +15,8 @@ const gridClass = columns === 1 ? 'grid grid-cols-1 gap-4 sm:gap-6' : 'grid grid
 {
   projects.length > 0 ? (
     <div class={gridClass}>
-      {projects.map((project) => (
-        <WorkCard project={project} />
+      {projects.map((project, i) => (
+        <WorkCard project={project} class="reveal" style={`--delay:${0.06 * i}s`} />
       ))}
     </div>
   ) : (

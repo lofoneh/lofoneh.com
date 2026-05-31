@@ -21,9 +21,11 @@ const resolvedSkills = skills.map((cat) => ({
 
 <Layout metadata={metadata}>
   <section class="mx-auto max-w-5xl px-4 pt-8 pb-8 sm:px-6 md:pt-12 md:pb-12 lg:px-8">
-    <SectionLabel text="experience" class="mb-6" />
-    <h1 class="mb-4 text-3xl font-bold leading-tight text-ink sm:text-4xl md:text-5xl">Where I've worked.</h1>
-    <p class="max-w-2xl text-base text-ink-2 sm:text-lg">
+    <SectionLabel text="experience" class="reveal mb-6" />
+    <h1 class="reveal mb-4 text-3xl font-bold leading-tight text-ink sm:text-4xl md:text-5xl" style="--delay:0.08s">
+      Where I've worked.
+    </h1>
+    <p class="reveal max-w-2xl text-base text-ink-2 sm:text-lg" style="--delay:0.16s">
       A short career timeline, the stack i work with, and a couple of credentials. For the formatted-PDF version,
       <a
         class="underline underline-offset-4 hover:text-ink-2"
@@ -39,8 +41,11 @@ const resolvedSkills = skills.map((cat) => ({
   <section class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
     <ol class="space-y-10 sm:space-y-12">
       {
-        roles.map((role) => (
-          <li class="border border-rule p-6 transition-colors hover:border-ink sm:p-8">
+        roles.map((role, i) => (
+          <li
+            class="reveal border border-rule p-6 transition-colors hover:border-ink sm:p-8"
+            style={`--delay:${0.06 * i}s`}
+          >
             <p class="mb-3 font-mono text-xs text-ink-3">
               {role.start} — {role.end}
             </p>

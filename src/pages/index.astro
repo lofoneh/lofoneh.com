@@ -9,29 +9,115 @@ const metadata = {
 
 <Layout metadata={metadata}>
   <section class="mx-auto max-w-3xl px-4 pt-8 pb-20 sm:px-6 md:pt-12 md:pb-28 lg:px-8">
-    <h1 class="mb-10 text-3xl font-bold leading-tight text-ink sm:text-4xl md:text-5xl">
-      hi, i'm jeffery <span aria-hidden="true" class="motion-safe:animate-wave origin-[70%_70%] inline-block">👋</span>
-    </h1>
+    <!-- Terminal boot hero. All motion lives behind prefers-reduced-motion:
+         no-preference, so the static markup below is the full, readable
+         fallback for reduced-motion and no-JS visitors. -->
+    <div class="terminal overflow-hidden rounded-lg border border-rule bg-surface-2">
+      <!-- window chrome -->
+      <div class="flex items-center gap-3 border-b border-rule px-4 py-2.5">
+        <span class="flex gap-1.5" aria-hidden="true">
+          <span class="size-2.5 rounded-full border border-ink-3"></span>
+          <span class="size-2.5 rounded-full border border-ink-3"></span>
+          <span class="size-2.5 rounded-full border border-ink-3"></span>
+        </span>
+        <span class="font-mono text-xs text-ink-2">jeffery@lofoneh: ~</span>
+      </div>
 
-    <div class="space-y-6 text-base leading-relaxed text-ink sm:text-lg">
-      <p>
-        i'm a software engineer in Accra who's into reliable systems, infrastructure, and lately the MLOps side of AI.
-      </p>
+      <!-- terminal body -->
+      <div class="px-4 py-6 font-mono text-sm leading-relaxed sm:px-6 sm:py-8">
+        <!-- $ whoami -->
+        <p>
+          <span class="text-ink-3 select-none" aria-hidden="true">$ </span><span
+            class="cmd"
+            style="--w:6ch;--steps:6;--delay:0.15s;--dur:0.5s">whoami</span
+          >
+        </p>
+        <h1
+          class="reveal mb-8 mt-3 font-sans text-3xl font-bold leading-tight text-ink sm:text-4xl md:text-5xl"
+          style="--delay:0.75s"
+        >
+          hi, i'm jeffery <span aria-hidden="true" class="motion-safe:animate-wave origin-[70%_70%] inline-block"
+            >👋</span
+          >
+        </h1>
 
-      <p>
-        day-to-day i do DevOps at Adaptive Computer Solutions — CI/CD pipelines, Kubernetes, observability. the boring,
-        important layers that keep production calm.
-      </p>
+        <!-- $ cat about.md -->
+        <p>
+          <span class="text-ink-3 select-none" aria-hidden="true">$ </span><span
+            class="cmd"
+            style="--w:12ch;--steps:12;--delay:1.05s;--dur:0.6s">cat about.md</span
+          >
+        </p>
 
-      <p>
-        my degree is in metallurgical engineering from KNUST. software was a back-door entry — i taught myself after
-        graduation, and turned out to be a fast learner with a stubborn appetite for figuring things out.
-      </p>
+        <div class="reveal-group mt-4 space-y-5 font-sans text-base leading-relaxed text-ink sm:space-y-6 sm:text-lg">
+          <p class="reveal" style="--delay:1.75s">
+            i'm a software engineer in Accra with a thing for systems that don't break at 3am — infrastructure,
+            pipelines, and the unglamorous plumbing underneath everything people actually use.
+          </p>
 
-      <p>
-        at night i'm picking up Ruby on Rails, exploring Pulumi, and getting deeper into LLMs. in my downtime: movies,
-        anime, Gospel music, and the occasional acoustic guitar.
-      </p>
+          <p class="reveal" style="--delay:1.95s">
+            day-to-day that's DevOps at Adaptive Computer Solutions: CI/CD, Kubernetes, observability — keeping
+            production calm and quietly boring.
+          </p>
+
+          <p class="reveal" style="--delay:2.15s">
+            my degree is in metallurgical engineering from KNUST. software was a back-door entry — i taught myself after
+            graduation, and turned out to be a fast learner with a stubborn appetite for figuring things out.
+          </p>
+
+          <p class="reveal" style="--delay:2.35s">
+            at night i'm picking up Ruby on Rails, exploring Pulumi, and getting deeper into LLMs. in my downtime:
+            movies, anime, Gospel music, and the occasional acoustic guitar.
+          </p>
+        </div>
+
+        <!-- trailing prompt -->
+        <p class="reveal mt-7 text-ink-3" style="--delay:2.55s" aria-hidden="true">
+          $ <span class="caret inline-block h-[1.1em] w-[0.55em] translate-y-[0.15em] bg-ink"></span>
+        </p>
+      </div>
     </div>
   </section>
 </Layout>
+
+<style>
+  /* Typed commands and revealed lines are fully visible by default — only the
+     animations below are conditional, so the page reads correctly with motion
+     off or JS disabled. */
+  .cmd {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: bottom;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .cmd {
+      width: 0;
+      animation: type var(--dur) steps(var(--steps), end) var(--delay) both;
+    }
+
+    /* .reveal is global (tailwind.css) — shared with the inner pages. */
+
+    .caret {
+      animation: blink 1.1s step-end infinite;
+    }
+
+    @keyframes type {
+      to {
+        width: var(--w);
+      }
+    }
+
+    @keyframes blink {
+      0%,
+      50% {
+        opacity: 1;
+      }
+      50.01%,
+      100% {
+        opacity: 0;
+      }
+    }
+  }
+</style>
