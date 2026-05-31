@@ -43,8 +43,8 @@ apps:
         index: true
 
     list:
-      isEnabled: true
-      pathname: 'writing' # Blog index lives at /writing
+      isEnabled: false # Folded into the home #writing section; /writing redirects there.
+      pathname: 'writing'
       robots:
         index: true
 
