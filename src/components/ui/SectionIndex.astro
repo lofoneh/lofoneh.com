@@ -1,0 +1,24 @@
+---
+/**
+ * The numbered section marker — a big dim mono index over a `~/label`.
+ * The unifying motif across every major section (01 about → 04 writing).
+ * Used inside SectionHeader and directly in the About hero.
+ */
+export interface Props {
+  index: string; // "01", "02" …
+  label: string; // "about" → renders as ~/about
+  class?: string;
+}
+
+const { index, label, class: className = '' } = Astro.props;
+---
+
+<div
+  class:list={[
+    'reveal-up intersect intersect-once flex items-end gap-3 md:flex-col md:items-start md:gap-1.5',
+    className,
+  ]}
+>
+  <span class="section-index font-mono text-5xl font-light text-ink-3 sm:text-6xl">{index}</span>
+  <span class="mb-1.5 font-mono text-xs uppercase tracking-[0.2em] text-ink-2 md:mb-0">~/{label}</span>
+</div>

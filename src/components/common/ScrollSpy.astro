@@ -5,7 +5,7 @@
     let observer = null;
 
     function initScrollSpy() {
-      const sections = ['about', 'experience', 'projects', 'writing']
+      const sections = ['about', 'experience', 'projects', 'writing', 'contact']
         .map((id) => document.getElementById(id))
         .filter(Boolean);
       const links = Array.from(document.querySelectorAll('[data-nav-section]'));

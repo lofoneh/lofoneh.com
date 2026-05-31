@@ -6,6 +6,7 @@ export const headerData = {
     { text: 'Experience', href: '/#experience' },
     { text: 'Projects', href: '/#projects' },
     { text: 'Writing', href: '/#writing' },
+    { text: 'Contact', href: '/#contact' },
   ],
   actions: [{ text: 'Resume', href: '/resume.pdf', target: '_blank' }],
 };
