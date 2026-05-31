@@ -158,3 +158,23 @@
     animation: reveal-rise 0.6s ease-out var(--delay, 0s) both;
   }
 }
+
+/* Scroll-triggered reveal. Pair with the `intersect intersect-once` classes so
+   BasicScripts' IntersectionObserver toggles `no-intersect` as the element
+   enters the viewport. Hidden only when motion is allowed, so reduced-motion
+   and no-JS visitors see content immediately. The Observer also assigns a
+   staggered transition-delay automatically for grouped elements. */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-up {
+    opacity: 0;
+    transform: translateY(0.5rem);
+    transition:
+      opacity 0.5s ease-out,
+      transform 0.5s ease-out;
+  }
+
+  .reveal-up:not([no-intersect]) {
+    opacity: 1;
+    transform: none;
+  }
+}
