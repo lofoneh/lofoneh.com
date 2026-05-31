@@ -1,10 +1,11 @@
-import { getPermalink, getBlogPermalink, getAsset } from './utils/permalinks';
+import { getAsset } from './utils/permalinks';
 
 export const headerData = {
   links: [
-    { text: 'Experience', href: getPermalink('/experience') },
-    { text: 'Projects', href: getPermalink('/projects') },
-    { text: 'Writing', href: getBlogPermalink() },
+    { text: 'About', href: '/#about' },
+    { text: 'Experience', href: '/#experience' },
+    { text: 'Projects', href: '/#projects' },
+    { text: 'Writing', href: '/#writing' },
   ],
   actions: [{ text: 'Resume', href: '/resume.pdf', target: '_blank' }],
 };

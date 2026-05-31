@@ -1,0 +1,36 @@
+<script is:inline>
+  (() => {
+    function initScrollSpy() {
+      const sections = ['about', 'experience', 'projects', 'writing']
+        .map((id) => document.getElementById(id))
+        .filter(Boolean);
+      const links = Array.from(document.querySelectorAll('[data-nav-section]'));
+      if (!sections.length || !links.length) return;
+
+      function setActive(id) {
+        links.forEach((a) => {
+          a.classList.toggle('aw-link-active', a.getAttribute('data-nav-section') === id);
+        });
+      }
+
+      let current = null;
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) current = entry.target.id;
+          });
+          if (current) setActive(current);
+        },
+        // Top-biased band: a section is "active" while it crosses the upper third.
+        { rootMargin: '-45% 0px -50% 0px', threshold: 0 }
+      );
+
+      sections.forEach((s) => observer.observe(s));
+    }
+
+    if (document.readyState !== 'loading') initScrollSpy();
+    else document.addEventListener('DOMContentLoaded', initScrollSpy);
+    // Re-init after client-side swaps (matches the BasicScripts pattern).
+    document.addEventListener('astro:after-swap', initScrollSpy);
+  })();
+</script>
