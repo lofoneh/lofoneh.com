@@ -1,14 +1,19 @@
 ---
-import SectionHeader from '~/components/ui/SectionHeader.astro';
 import TerminalCTA from '~/components/ui/TerminalCTA.astro';
 ---
 
-<section class="mx-auto max-w-5xl px-4 pt-8 pb-16 sm:px-6 md:pt-12 md:pb-24 lg:px-8">
-  <SectionHeader index="05" label="contact" title="Want to work together?">
-    <p>I'm open to software engineering roles — DevOps, infrastructure, or backend — and freelance work.</p>
+<!-- Closing call-to-action at the base of the site. Intentionally NOT a numbered
+     section header (01–04 are the chapters) — a quiet CTA band above the footer. -->
+<section class="mx-auto max-w-5xl px-4 pt-12 pb-16 sm:px-6 md:pt-16 md:pb-24 lg:px-8">
+  <div class="reveal-up intersect intersect-once max-w-2xl border-t border-rule pt-10 sm:pt-12">
+    <p class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-ink-2">~/contact</p>
+    <h2 class="text-2xl font-bold leading-tight tracking-tight text-ink sm:text-3xl">Want to work together?</h2>
+    <p class="mt-4 text-base leading-relaxed text-ink-2 sm:text-lg">
+      I'm open to software engineering roles — DevOps, infrastructure, or backend — and freelance work.
+    </p>
     <div class="mt-8 flex flex-wrap gap-x-8 gap-y-3">
       <TerminalCTA href="mailto:jefferyasamani7@gmail.com" text="email-me" />
       <TerminalCTA href="/resume.pdf" text="resume.pdf" target="_blank" />
     </div>
-  </SectionHeader>
+  </div>
 </section>
