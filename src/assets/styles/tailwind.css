@@ -136,3 +136,77 @@
 .aw-link-active {
   @apply text-ink underline underline-offset-[6px] decoration-1;
 }
+
+/* Staggered reveal-on-load. Opt in with class="reveal" and an optional inline
+   --delay (e.g. style="--delay:0.2s"). Content is fully visible by default, so
+   reduced-motion and no-JS visitors get it immediately — only the entrance is
+   conditional. Shared by the home hero and the inner-page headers/cards. */
+@keyframes reveal-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.6rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    animation: reveal-rise 0.6s ease-out var(--delay, 0s) both;
+  }
+}
+
+/* Scroll-triggered reveal. Pair with the `intersect intersect-once` classes so
+   BasicScripts' IntersectionObserver toggles `no-intersect` as the element
+   enters the viewport. Hidden only when motion is allowed, so reduced-motion
+   and no-JS visitors see content immediately. The Observer also assigns a
+   staggered transition-delay automatically for grouped elements. */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-up {
+    opacity: 0;
+    transform: translateY(0.5rem);
+    transition:
+      opacity 0.5s ease-out,
+      transform 0.5s ease-out;
+  }
+
+  .reveal-up:not([no-intersect]) {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Atmosphere ────────────────────────────────────────────────────────────
+   Decorative depth for the monochrome canvas: a fixed film-grain film over
+   everything plus a soft edge vignette (dark mode only). Both are inert
+   (pointer-events:none, aria-hidden in markup). Static — no animation — so
+   they're reduced-motion safe and cheap. */
+.site-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.site-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.dark .site-vignette {
+  background: radial-gradient(125% 125% at 50% 0%, transparent 52%, rgb(0 0 0 / 0.62) 100%);
+}
+
+/* ── Editorial section header ──────────────────────────────────────────────
+   Big mono index number + ~/label form the unifying motif across sections. */
+.section-index {
+  font-feature-settings: 'tnum' 1;
+  line-height: 0.8;
+}

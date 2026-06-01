@@ -17,6 +17,18 @@ const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : 
 ---
 
 <article class="space-y-3 sm:space-y-4">
+  <h2 class="text-xl font-semibold leading-tight text-ink sm:text-2xl">
+    {
+      link ? (
+        <a class="underline-offset-[6px] decoration-1 transition-colors hover:underline" href={link}>
+          {post.title}
+        </a>
+      ) : (
+        post.title
+      )
+    }
+  </h2>
+
   <p class="font-mono text-xs text-ink-3">
     <time datetime={String(post.publishDate)}>{getFormattedDate(post.publishDate)}</time>
     {
@@ -38,18 +50,6 @@ const link = APP_BLOG?.post?.isEnabled ? getPermalink(post.permalink, 'post') : 
       )
     }
   </p>
-
-  <h2 class="text-xl font-semibold leading-tight text-ink sm:text-2xl">
-    {
-      link ? (
-        <a class="underline-offset-[6px] decoration-1 transition-colors hover:underline" href={link}>
-          {post.title}
-        </a>
-      ) : (
-        post.title
-      )
-    }
-  </h2>
 
   {post.excerpt && <p class="text-base leading-relaxed text-ink-2 sm:text-lg">{post.excerpt}</p>}
 

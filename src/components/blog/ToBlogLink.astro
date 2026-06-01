@@ -1,11 +1,12 @@
 ---
-import { getBlogPermalink } from '~/utils/permalinks';
+// Writing lives in the #writing section of the home page now (the standalone
+// /writing index was folded in), so link straight to that anchor.
 ---
 
 <div class="mx-auto max-w-5xl px-4 pb-8 pt-12 sm:px-6 lg:px-8">
   <a
     class="group inline-flex items-baseline gap-1 font-mono text-sm text-ink no-underline transition-colors hover:text-ink-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
-    href={getBlogPermalink()}
+    href="/#writing"
   >
     <span aria-hidden="true" class="text-ink-3 group-hover:text-ink">←</span>
     <span class="underline-offset-[6px] decoration-1 group-hover:underline">back-to-writing</span>

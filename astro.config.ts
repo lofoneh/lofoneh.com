@@ -24,6 +24,12 @@ const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroInteg
 export default defineConfig({
   output: 'static',
 
+  redirects: {
+    '/experience': '/#experience',
+    '/projects': '/#projects',
+    '/writing': '/#writing',
+  },
+
   integrations: [
     sitemap(),
     mdx(),

@@ -4,7 +4,7 @@ import ToggleTheme from '~/components/common/ToggleTheme.astro';
 import ToggleMenu from '~/components/common/ToggleMenu.astro';
 import Button from '~/components/ui/Button.astro';
 
-import { getHomePermalink, trimSlash } from '~/utils/permalinks';
+import { getHomePermalink } from '~/utils/permalinks';
 import type { CallToAction } from '~/types';
 
 interface Link {
@@ -21,8 +21,6 @@ export interface Props {
 }
 
 const { id = 'header', links = [], actions = [], isSticky = false, showToggleTheme = false } = Astro.props;
-
-const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
 ---
 
 <!--
@@ -55,11 +53,9 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
               links.map(({ text, href }) => (
                 <li>
                   <a
-                    class:list={[
-                      'block px-3 py-2 text-ink-2 transition-colors hover:text-ink',
-                      { 'aw-link-active': href === currentPath },
-                    ]}
+                    class="block px-3 py-2 text-ink-2 transition-colors hover:text-ink"
                     href={href}
+                    data-nav-section={href?.startsWith('/#') ? href.slice(2) : undefined}
                   >
                     {text}
                   </a>
@@ -97,11 +93,9 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
             links.map(({ text, href }) => (
               <li>
                 <a
-                  class:list={[
-                    'block py-3 text-base text-ink-2 transition-colors hover:text-ink',
-                    { 'aw-link-active': href === currentPath },
-                  ]}
+                  class="block py-3 text-base text-ink-2 transition-colors hover:text-ink"
                   href={href}
+                  data-nav-section={href?.startsWith('/#') ? href.slice(2) : undefined}
                 >
                   {text}
                 </a>

@@ -1,0 +1,35 @@
+---
+import SectionLabel from '~/components/ui/SectionLabel.astro';
+import SectionHeader from '~/components/ui/SectionHeader.astro';
+import WorkList from '~/components/widgets/WorkList.astro';
+import { projects } from '~/data/projects';
+
+const real = projects.filter((p) => p.status !== 'exploring');
+const exploring = projects.filter((p) => p.status === 'exploring');
+---
+
+<section class="mx-auto max-w-5xl px-4 pt-8 pb-8 sm:px-6 md:pt-12 md:pb-12 lg:px-8">
+  <SectionHeader index="03" label="projects" title="Things I have built.">
+    A selection of work I've shipped or am shipping, plus a few things I'm exploring next.
+  </SectionHeader>
+</section>
+
+{
+  real.length > 0 && (
+    <section class="mx-auto max-w-5xl px-4 pb-12 sm:px-6 md:pb-16 lg:px-8">
+      <WorkList projects={real} />
+    </section>
+  )
+}
+
+{
+  exploring.length > 0 && (
+    <section class="mx-auto max-w-5xl px-4 pb-24 sm:px-6 md:pb-32 lg:px-8">
+      <SectionLabel text="next-up" class="reveal-up intersect intersect-once mb-6" />
+      <p class="reveal-up intersect intersect-once mb-8 max-w-2xl text-sm text-ink-2 sm:text-base">
+        Projects I want to build next — most likely on weekends or as side experiments.
+      </p>
+      <WorkList projects={exploring} />
+    </section>
+  )
+}

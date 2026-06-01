@@ -16,7 +16,7 @@ const gridClass = columns === 1 ? 'grid grid-cols-1 gap-4 sm:gap-6' : 'grid grid
   projects.length > 0 ? (
     <div class={gridClass}>
       {projects.map((project) => (
-        <WorkCard project={project} />
+        <WorkCard project={project} class="reveal-up intersect intersect-once" />
       ))}
     </div>
   ) : (

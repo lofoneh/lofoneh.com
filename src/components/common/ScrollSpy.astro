@@ -1,0 +1,46 @@
+<script is:inline>
+  (() => {
+    // Hoisted so a swap-triggered re-init can tear down the previous observer
+    // instead of stacking a new one (ClientRouter fires astro:after-swap).
+    let observer = null;
+
+    function initScrollSpy() {
+      const sections = ['about', 'experience', 'projects', 'writing', 'contact']
+        .map((id) => document.getElementById(id))
+        .filter(Boolean);
+      const links = Array.from(document.querySelectorAll('[data-nav-section]'));
+      if (!sections.length || !links.length) return;
+
+      if (observer) observer.disconnect();
+
+      function setActive(id) {
+        links.forEach((a) => {
+          a.classList.toggle('aw-link-active', a.getAttribute('data-nav-section') === id);
+        });
+      }
+
+      // Light the first section up front so the top of the page isn't blank
+      // before the observer's first callback fires.
+      setActive(sections[0].id);
+
+      let current = null;
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) current = entry.target.id;
+          });
+          if (current) setActive(current);
+        },
+        // Top-biased band: a section is "active" while it crosses the upper third.
+        { rootMargin: '-45% 0px -50% 0px', threshold: 0 }
+      );
+
+      sections.forEach((s) => observer.observe(s));
+    }
+
+    if (document.readyState !== 'loading') initScrollSpy();
+    else document.addEventListener('DOMContentLoaded', initScrollSpy);
+    // Re-init after client-side swaps (matches the BasicScripts pattern).
+    document.addEventListener('astro:after-swap', initScrollSpy);
+  })();
+</script>

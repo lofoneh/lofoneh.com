@@ -1,5 +1,11 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
+import AboutSection from '~/components/sections/AboutSection.astro';
+import ExperienceSection from '~/components/sections/ExperienceSection.astro';
+import ProjectsSection from '~/components/sections/ProjectsSection.astro';
+import WritingSection from '~/components/sections/WritingSection.astro';
+import ContactSection from '~/components/sections/ContactSection.astro';
+import ScrollSpy from '~/components/common/ScrollSpy.astro';
 
 const metadata = {
   title: 'Jeffery Lofoneh Asamani — Software Engineer',
@@ -8,30 +14,10 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
-  <section class="mx-auto max-w-3xl px-4 pt-8 pb-20 sm:px-6 md:pt-12 md:pb-28 lg:px-8">
-    <h1 class="mb-10 text-3xl font-bold leading-tight text-ink sm:text-4xl md:text-5xl">
-      hi, i'm jeffery <span aria-hidden="true" class="motion-safe:animate-wave origin-[70%_70%] inline-block">👋</span>
-    </h1>
-
-    <div class="space-y-6 text-base leading-relaxed text-ink sm:text-lg">
-      <p>
-        i'm a software engineer in Accra who's into reliable systems, infrastructure, and lately the MLOps side of AI.
-      </p>
-
-      <p>
-        day-to-day i do DevOps at Adaptive Computer Solutions — CI/CD pipelines, Kubernetes, observability. the boring,
-        important layers that keep production calm.
-      </p>
-
-      <p>
-        my degree is in metallurgical engineering from KNUST. software was a back-door entry — i taught myself after
-        graduation, and turned out to be a fast learner with a stubborn appetite for figuring things out.
-      </p>
-
-      <p>
-        at night i'm picking up Ruby on Rails, exploring Pulumi, and getting deeper into LLMs. in my downtime: movies,
-        anime, Gospel music, and the occasional acoustic guitar.
-      </p>
-    </div>
-  </section>
+  <section id="about" class="scroll-mt-20"><AboutSection /></section>
+  <section id="experience" class="scroll-mt-20"><ExperienceSection /></section>
+  <section id="projects" class="scroll-mt-20"><ProjectsSection /></section>
+  <section id="writing" class="scroll-mt-20"><WritingSection /></section>
+  <section id="contact" class="scroll-mt-20"><ContactSection /></section>
+  <ScrollSpy />
 </Layout>

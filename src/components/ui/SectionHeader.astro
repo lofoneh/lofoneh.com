@@ -1,0 +1,47 @@
+---
+/**
+ * Editorial section header — the unifying motif across the site's major
+ * sections. A big mono index number + `~/label` sit in a left rail, with the
+ * heading and (optional) intro in the main column. Top hairline rule anchors
+ * each section. On mobile the rail collapses inline above the heading.
+ *
+ * Usage:
+ *   <SectionHeader index="02" label="experience" title="Where I've worked.">
+ *     intro copy (optional) …
+ *   </SectionHeader>
+ */
+import SectionIndex from '~/components/ui/SectionIndex.astro';
+
+export interface Props {
+  index: string; // "01", "02" …
+  label: string; // "experience" → renders as ~/experience
+  title?: string;
+  class?: string;
+}
+
+const { index, label, title, class: className = '' } = Astro.props;
+const hasIntro = Astro.slots.has('default');
+---
+
+<header class:list={['border-t border-rule pt-8 sm:pt-10', className]}>
+  <div class="grid gap-x-10 gap-y-5 md:grid-cols-[6.5rem_minmax(0,1fr)]">
+    <SectionIndex index={index} label={label} />
+
+    {
+      (title || hasIntro) && (
+        <div class="md:pt-2">
+          {title && (
+            <h2 class="reveal-up intersect intersect-once text-3xl font-bold leading-[1.05] tracking-tight text-ink sm:text-4xl md:text-5xl">
+              {title}
+            </h2>
+          )}
+          {hasIntro && (
+            <div class="reveal-up intersect intersect-once mt-4 max-w-2xl text-base leading-relaxed text-ink-2 sm:text-lg">
+              <slot />
+            </div>
+          )}
+        </div>
+      )
+    }
+  </div>
+</header>
