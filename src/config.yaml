@@ -11,7 +11,7 @@ metadata:
   title:
     default: Jeffery Lofoneh Asamani
     template: '%s — Jeffery Lofoneh Asamani'
-  description: 'Personal portfolio of Jeffery Lofoneh Asamani — backend & devops engineer building reliable systems.'
+  description: 'DevOps & backend engineer in Accra, Ghana. CI/CD, Kubernetes and observability, plus merged open-source work in Kubernetes, GitOps and Postgres projects.'
   robots:
     index: true
     follow: true
