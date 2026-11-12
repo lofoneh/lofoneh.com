@@ -4,6 +4,7 @@ const ENDPOINT = 'https://api.github.com/graphql';
 
 const SEARCH_QUERY = `query ($q: String!, $after: String) {
   search(query: $q, type: ISSUE, first: 100, after: $after) {
+    issueCount
     pageInfo { hasNextPage endCursor }
     nodes { ... on PullRequest { number title url state isDraft createdAt mergedAt
       repository { nameWithOwner url description isPrivate primaryLanguage { name } } } }
@@ -25,6 +26,7 @@ interface PageInfo {
   endCursor: string | null;
 }
 interface Connection<T> {
+  issueCount?: number;
   pageInfo: PageInfo;
   nodes: T[];
 }
@@ -106,18 +108,32 @@ export async function fetchSnapshot(opts: {
     for (;;) {
       const conn = pick(await gql<D>(query, { ...vars, after }));
       out.push(...conn.nodes);
-      if (!conn.pageInfo.hasNextPage || !conn.pageInfo.endCursor) break;
+      if (!conn.pageInfo.hasNextPage) break;
+      if (!conn.pageInfo.endCursor) throw new Error('GitHub pagination returned hasNextPage without an endCursor');
       after = conn.pageInfo.endCursor;
     }
     return out;
   }
 
   try {
+    let issueCount: number | undefined;
     const prNodes = await paginate<Partial<PrNode>, { search: Connection<Partial<PrNode>> }>(
       SEARCH_QUERY,
       { q: `is:pr author:${username} is:public -user:${username}` },
-      (d) => d.search
+      (d) => {
+        issueCount ??= d.search.issueCount;
+        return d.search;
+      }
     );
+    // Compare raw nodes returned (before skipping malformed ones) with GitHub's own total;
+    // search results are capped at 1000.
+    if (typeof issueCount !== 'number') throw new Error('GitHub search response had no issueCount');
+    const expected = Math.min(issueCount, 1000);
+    if (prNodes.length < expected) {
+      throw new Error(
+        `GitHub PR search was incomplete: collected ${prNodes.length} of ${expected} (issueCount ${issueCount})`
+      );
+    }
     const repoNodes = await paginate<RepoNode, { user: { repositories: Connection<RepoNode> } }>(
       REPOS_QUERY,
       { login: username },

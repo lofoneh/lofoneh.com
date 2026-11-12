@@ -1,7 +1,7 @@
 import { githubConfig } from '~/data/github.config';
 import fixture from '~/data/github.fixture.json';
 import { fetchSnapshot } from './fetch';
-import { explainFetchError, resolveSource } from './source';
+import { assertLiveSnapshot, explainFetchError, resolveSource } from './source';
 import { buildPortfolioData } from './transform';
 import type { GitHubSnapshot, PortfolioData } from './types';
 
@@ -14,6 +14,7 @@ async function load(): Promise<PortfolioData> {
     } catch (err) {
       throw explainFetchError(err);
     }
+    assertLiveSnapshot(snapshot);
   } else {
     console.warn('[github] GITHUB_TOKEN not set — using src/data/github.fixture.json (local only)');
     snapshot = fixture as unknown as GitHubSnapshot;

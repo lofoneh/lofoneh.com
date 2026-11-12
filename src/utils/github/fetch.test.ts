@@ -49,8 +49,10 @@ const repoNode = {
   primaryLanguage: { name: 'Go' },
   repositoryTopics: { nodes: [{ topic: { name: 'portfolio' } }] },
 };
-const search = (nodes: unknown[], next = false, cursor: string | null = null) => ({
-  data: { search: { pageInfo: { hasNextPage: next, endCursor: cursor }, nodes } },
+const search = (nodes: unknown[], next = false, cursor: string | null = null, issueCount?: number) => ({
+  data: {
+    search: { issueCount: issueCount ?? nodes.length, pageInfo: { hasNextPage: next, endCursor: cursor }, nodes },
+  },
 });
 const repos = (nodes: unknown[]) => ({
   data: { user: { repositories: { pageInfo: { hasNextPage: false, endCursor: null }, nodes } } },
@@ -100,7 +102,7 @@ test('sends a bearer token and an is:public search query', async () => {
 });
 
 test('follows pageInfo across pages', async () => {
-  const { impl, calls } = fakeFetch([search([prNode], true, 'c1'), search([prNode]), repos([])]);
+  const { impl, calls } = fakeFetch([search([prNode], true, 'c1', 2), search([prNode], false, null, 2), repos([])]);
   const snap = await fetchSnapshot({ token: 't', username: 'lofoneh', fetchImpl: impl });
   expect(snap.pullRequests.length).toBe(2);
   expect(calls[1].variables.after).toBe('c1');
@@ -124,4 +126,14 @@ test('rejects when the API hangs past timeoutMs', async () => {
   await expect(fetchSnapshot({ token: 't', username: 'lofoneh', timeoutMs: 50, fetchImpl: impl })).rejects.toThrow(
     /timed out/i
   );
+});
+
+test('rejects when the search returns fewer PRs than issueCount', async () => {
+  const { impl } = fakeFetch([search([prNode], false, null, 5), repos([])]);
+  await expect(fetchSnapshot({ token: 't', username: 'lofoneh', fetchImpl: impl })).rejects.toThrow(/1.*5|5.*1/);
+});
+
+test('rejects when hasNextPage is true but endCursor is missing', async () => {
+  const { impl } = fakeFetch([search([prNode], true, null, 2), repos([])]);
+  await expect(fetchSnapshot({ token: 't', username: 'lofoneh', fetchImpl: impl })).rejects.toThrow(/endCursor/);
 });

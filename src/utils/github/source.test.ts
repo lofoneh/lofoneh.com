@@ -1,5 +1,5 @@
 import { expect, test } from 'bun:test';
-import { explainFetchError, resolveSource } from './source';
+import { assertLiveSnapshot, explainFetchError, resolveSource } from './source';
 
 test('a token means live', () => expect(resolveSource({ GITHUB_TOKEN: 'x' })).toEqual({ mode: 'live', token: 'x' }));
 test('no token on Vercel production fails', () =>
@@ -12,7 +12,7 @@ test('no token locally uses the fixture', () => expect(resolveSource({})).toEqua
 const http = (s: number) => new Error(`GitHub GraphQL request failed with HTTP ${s}`);
 test('401 gets the expired-token hint', () => {
   const out = explainFetchError(http(401)) as Error;
-  expect(out.message).toMatch(/rejected GITHUB_TOKEN \(HTTP 401\).*expired or been revoked/);
+  expect(out.message).toMatch(/rejected GITHUB_TOKEN \(HTTP 401\).*expired, been revoked, or hit a rate limit/);
   expect(out.cause).toBeInstanceOf(Error);
 });
 test('403 gets the expired-token hint', () =>
@@ -22,3 +22,9 @@ test('502 is unchanged', () => {
   expect(explainFetchError(e)).toBe(e);
 });
 test('non-Error is unchanged', () => expect(explainFetchError('boom')).toBe('boom'));
+
+test('assertLiveSnapshot throws on zero PRs', () =>
+  expect(() => assertLiveSnapshot({ fetchedAt: '', pullRequests: [], repos: [] })).toThrow(/no PRs/));
+
+test('assertLiveSnapshot passes with at least one PR', () =>
+  expect(() => assertLiveSnapshot({ fetchedAt: '', pullRequests: [{} as never], repos: [] })).not.toThrow());
