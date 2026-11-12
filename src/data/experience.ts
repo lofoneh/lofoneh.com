@@ -1,5 +1,5 @@
 /**
- * Career history, skills, education, and certifications shown on /experience.
+ * Career history, skills, education, and certifications shown in the experience section.
  * Source of truth is the resume — keep this file in sync when the resume updates.
  */
 
@@ -14,7 +14,7 @@ export interface Role {
 
 export interface SkillCategory {
   label: string;
-  items: { slug: string; learning?: boolean }[];
+  items: string[];
 }
 
 export interface EducationEntry {
@@ -23,7 +23,6 @@ export interface EducationEntry {
   degree: string;
   start: string;
   end: string;
-  coursework?: string[];
 }
 
 export interface Certification {
@@ -39,12 +38,12 @@ export const roles: Role[] = [
     start: 'Aug 2024',
     end: 'Present',
     bullets: [
-      'Build CI/CD pipelines on Azure DevOps and Azure Kubernetes Service (AKS) to build, test, and release applications.',
-      'Deployed the LGTM observability stack (Loki, Grafana, Tempo, Prometheus) across production applications, cutting mean incident resolution time by ~50%.',
-      'Deploy and troubleshoot Web and USSD applications built in C#/.NET and React across multiple environments.',
-      'Set up and administer PostgreSQL and MongoDB databases, including configuration, access control, and backups.',
-      'Set up Uptime Kuma to monitor servers and live endpoints, with alerts integrated into Microsoft Teams for real-time downtime notifications.',
-      'Developing a Go CLI tool to standardize CI/CD and operational tasks for on-premises deployments.',
+      'Build CI/CD pipelines on Azure DevOps and Azure Kubernetes Service (AKS) that build, test and release applications.',
+      'Rolled out the LGTM observability stack (Loki, Grafana, Tempo, Prometheus) across production applications, cutting mean incident resolution time by about 50%.',
+      'Deploy and troubleshoot web and USSD applications built in C#/.NET and React across several environments.',
+      'Set up and administer PostgreSQL and MongoDB, including configuration, access control and backups.',
+      'Monitor servers and live endpoints with Uptime Kuma, alerting to Microsoft Teams on downtime.',
+      'Developing a Go CLI for on-premises CI/CD and operations: it deploys apps, backs up and restores apps and databases, and installs packages offline on air-gapped Linux servers over SSH.',
     ],
   },
   {
@@ -54,7 +53,7 @@ export const roles: Role[] = [
     start: 'Feb 2024',
     end: 'Aug 2024',
     bullets: [
-      'Wrote Bash and PowerShell scripts to automate health monitoring of 12 Linux and 5 Windows servers, replacing manual checks and improving reliability.',
+      'Automated health monitoring of 12 Linux and 5 Windows servers with Bash and PowerShell, replacing manual checks.',
       'Deployed and configured applications and services in on-premises environments.',
     ],
   },
@@ -64,59 +63,25 @@ export const roles: Role[] = [
     start: 'Nov 2022',
     end: 'Feb 2024',
     bullets: [
-      'Self-taught programming, cloud, and DevOps fundamentals while building hands-on projects, transitioning into a professional DevOps career.',
+      'Taught myself programming, cloud and DevOps through hands-on projects, then moved into a professional DevOps role.',
     ],
   },
 ];
 
-// Skill categories — mirrors the resume's SKILLS block, grouped for /experience.
-// Slugs resolve via src/data/stack-icons.ts; unknown slugs fall back to mono text.
+// Skill categories, mirroring the CV. Chips render as plain lowercase text.
 export const skills: SkillCategory[] = [
+  { label: 'Cloud & infrastructure', items: ['aws', 'azure', 'digitalocean', 'terraform', 'ansible'] },
   {
-    label: 'Languages',
-    items: [{ slug: 'python' }, { slug: 'ruby' }, { slug: 'go' }, { slug: 'typescript' }],
+    label: 'Containers & Kubernetes',
+    items: ['docker', 'kubernetes', 'helm', 'kind', 'controller-runtime', 'traefik'],
   },
   {
-    label: 'Cloud & DevOps',
-    items: [
-      { slug: 'aws' },
-      { slug: 'azure' },
-      { slug: 'docker' },
-      { slug: 'kubernetes' },
-      { slug: 'terraform' },
-      { slug: 'ansible' },
-      { slug: 'traefik' },
-    ],
+    label: 'CI/CD & observability',
+    items: ['github actions', 'azure devops', 'prometheus', 'grafana', 'loki', 'tempo', 'opentelemetry', 'uptime kuma'],
   },
-  {
-    label: 'CI/CD & Observability',
-    items: [
-      { slug: 'github-actions' },
-      { slug: 'azure-devops' },
-      { slug: 'grafana' },
-      { slug: 'loki' },
-      { slug: 'tempo' },
-      { slug: 'prometheus' },
-      { slug: 'opentelemetry' },
-      { slug: 'uptime-kuma' },
-    ],
-  },
-  {
-    label: 'Databases',
-    items: [{ slug: 'postgresql' }, { slug: 'mongodb' }],
-  },
-  {
-    label: 'Frameworks',
-    items: [
-      { slug: 'react' },
-      { slug: 'nextjs' },
-      { slug: 'django' },
-      { slug: 'fastapi' },
-      { slug: 'gin' },
-      { slug: 'prisma' },
-      { slug: 'rails' },
-    ],
-  },
+  { label: 'Languages', items: ['go', 'rust', 'python', 'typescript', 'ruby', 'bash', 'powershell'] },
+  { label: 'Databases', items: ['postgresql', 'mongodb', 'supabase', 'redis', 'kividb'] },
+  { label: 'Frameworks', items: ['react', 'next.js', 'expo', 'django', 'fastapi', 'gin', 'prisma', 'rails'] },
 ];
 
 export const education: EducationEntry[] = [
@@ -126,7 +91,6 @@ export const education: EducationEntry[] = [
     degree: 'BSc Metallurgical Engineering',
     start: 'Aug 2018',
     end: 'Nov 2022',
-    coursework: ['MATLAB', 'Python programming', 'Data analysis', 'Project management'],
   },
 ];
 
