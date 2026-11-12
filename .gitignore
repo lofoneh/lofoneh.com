@@ -29,3 +29,5 @@ CLAUDE.md
 
 # Local-only editor config
 .vscode/
+# brainstorming companion mockups
+.superpowers/
