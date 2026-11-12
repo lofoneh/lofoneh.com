@@ -1,0 +1,56 @@
+---
+import type { OssCardData } from '~/utils/github/types';
+
+export interface Props {
+  card: OssCardData;
+  class?: string;
+}
+
+const { card, class: className = '' } = Astro.props;
+const { name, owner, tag, blurb, url, merged, open, prLinks, moreCount, moreUrl } = card;
+const linkClass =
+  'text-ink underline underline-offset-4 decoration-1 transition-colors hover:text-ink-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-surface';
+---
+
+<article
+  class:list={[
+    'group flex min-w-0 flex-col gap-4 border border-rule p-6 transition-colors duration-200 hover:border-ink',
+    className,
+  ]}
+>
+  <p class="font-mono text-xs text-ink-3">{owner} · {tag}</p>
+
+  <h3 class="text-xl font-semibold leading-tight text-ink">
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="break-words no-underline hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+    >
+      {name}
+    </a>
+  </h3>
+
+  <p class="text-sm leading-relaxed text-ink-2">{blurb}</p>
+
+  <p class="font-mono text-xs text-ink-2">
+    {merged} merged{open > 0 && <span> · {open} in review</span>}
+  </p>
+
+  {
+    (prLinks.length > 0 || moreCount > 0) && (
+      <div class="mt-auto flex flex-wrap gap-x-4 gap-y-2 font-mono text-xs">
+        {prLinks.map((pr) => (
+          <a href={pr.url} target="_blank" rel="noopener noreferrer" class={linkClass}>
+            {pr.label}
+          </a>
+        ))}
+        {moreCount > 0 && (
+          <a href={moreUrl} target="_blank" rel="noopener noreferrer" class={linkClass}>
+            +{moreCount}
+          </a>
+        )}
+      </div>
+    )
+  }
+</article>

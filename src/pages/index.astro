@@ -1,6 +1,7 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import AboutSection from '~/components/sections/AboutSection.astro';
+import OpenSourceSection from '~/components/sections/OpenSourceSection.astro';
 import ExperienceSection from '~/components/sections/ExperienceSection.astro';
 import ProjectsSection from '~/components/sections/ProjectsSection.astro';
 import WritingSection from '~/components/sections/WritingSection.astro';
@@ -8,13 +9,14 @@ import ContactSection from '~/components/sections/ContactSection.astro';
 import ScrollSpy from '~/components/common/ScrollSpy.astro';
 
 const metadata = {
-  title: 'Jeffery Lofoneh Asamani — Software Engineer',
+  title: 'Jeffery Lofoneh Asamani — DevOps & Backend Engineer',
   ignoreTitleTemplate: true,
 };
 ---
 
 <Layout metadata={metadata}>
   <section id="about" class="scroll-mt-20"><AboutSection /></section>
+  <section id="open-source" class="scroll-mt-20"><OpenSourceSection /></section>
   <section id="experience" class="scroll-mt-20"><ExperienceSection /></section>
   <section id="projects" class="scroll-mt-20"><ProjectsSection /></section>
   <section id="writing" class="scroll-mt-20"><WritingSection /></section>

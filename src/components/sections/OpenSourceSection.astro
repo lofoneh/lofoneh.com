@@ -1,0 +1,45 @@
+---
+import SectionHeader from '~/components/ui/SectionHeader.astro';
+import SectionBody from '~/components/ui/SectionBody.astro';
+import OssCard from '~/components/ui/OssCard.astro';
+import { getPortfolioData } from '~/utils/github';
+
+const { oss } = await getPortfolioData();
+---
+
+<section class="mx-auto max-w-5xl px-4 pt-8 pb-12 sm:px-6 md:pt-12 md:pb-16 lg:px-8">
+  <SectionHeader index="02" label="open-source" title="Open source.">
+    Merged work in Kubernetes, GitOps, observability and Postgres projects.
+  </SectionHeader>
+
+  <SectionBody class="mt-10">
+    {
+      oss.cards.length === 0 ? (
+        <p class="font-mono text-sm text-ink-3">[ no merged open-source work yet ]</p>
+      ) : (
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {oss.cards.map((card) => (
+            <OssCard card={card} class="reveal-up intersect intersect-once" />
+          ))}
+        </div>
+      )
+    }
+    {
+      oss.total > oss.cards.length && (
+        <div class="mt-8">
+          <a
+            href={oss.allPrsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group inline-flex items-baseline gap-1 font-mono text-base text-ink no-underline transition-colors hover:text-ink-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+          >
+            <span aria-hidden="true" class="select-none text-ink-3 transition-colors group-hover:text-ink">
+              $
+            </span>
+            <span class="underline-offset-[6px] decoration-1 group-hover:underline">./all-prs →</span>
+          </a>
+        </div>
+      )
+    }
+  </SectionBody>
+</section>

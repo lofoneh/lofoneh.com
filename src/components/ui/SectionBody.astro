@@ -1,0 +1,16 @@
+---
+/**
+ * Body wrapper aligned to the SectionHeader rail: an empty left rail column
+ * on md+ so content lines up with the heading column.
+ */
+export interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<div class:list={['grid gap-x-10 md:grid-cols-[6.5rem_minmax(0,1fr)]', className]}>
+  <div class="hidden md:block" aria-hidden="true"></div>
+  <div><slot /></div>
+</div>
