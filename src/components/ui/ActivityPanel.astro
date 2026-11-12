@@ -60,8 +60,11 @@ const { items, merged, open, projects } = activity;
 
   <div class="border-t border-rule px-4 py-3 text-ink-3">
     <span class="hidden sm:inline">
-      <span aria-hidden="true">●</span> merged <span aria-hidden="true">○</span> in review · {merged} merged · {open} in review
-      · {projects} projects
+      <span class="whitespace-nowrap"><span aria-hidden="true">●</span> merged</span>
+      <span class="whitespace-nowrap"><span aria-hidden="true">○</span> in review</span> ·
+      <span class="whitespace-nowrap">{merged} merged</span> ·
+      <span class="whitespace-nowrap">{open} in review</span> ·
+      <span class="whitespace-nowrap">{projects} projects</span>
     </span>
     <span class="sm:hidden">{merged} merged · {open} in review</span>
   </div>
