@@ -98,10 +98,20 @@ Post frontmatter: `title` (required), `publishDate`, `updateDate`, `draft`, `exc
 
 Hero images use `loading="eager"` and `fetchpriority="high"`.
 
+## GitHub Sync
+
+- Rules: `src/utils/github/` (`transform.ts` rules, `fetch.ts` network, `source.ts` env decision, `index.ts` entry point `getPortfolioData()`). Config: `src/data/github.config.ts`.
+- Tests: `bun run test` (Bun's built-in runner).
+- Fixture: `src/data/github.fixture.json`, regenerated with `GITHUB_TOKEN=$(gh auth token) bun run github:fixture`. Builds without `GITHUB_TOKEN` use it locally.
+- The fixture is local-only. Vercel (`VERCEL_ENV`) and CI (`CI`) builds fail without `GITHUB_TOKEN`.
+- A token rejected with HTTP 401/403 produces a build error saying it may have expired or been revoked.
+- Own repos appear on the site only when they carry the GitHub topic `portfolio`.
+
 ## Verification Checklist
 
 After changes, always verify:
 
 1. `bun run build` succeeds
 2. `bun run check` passes (astro check + ESLint + Prettier)
-3. Visual check in browser: homepage, blog, dark mode, mobile menu
+3. `bun run test` passes
+4. Visual check in browser: homepage, blog, dark mode, mobile menu
