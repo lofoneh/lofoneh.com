@@ -17,3 +17,15 @@ jobs:
         run: |
           if [ -z "$HOOK" ]; then echo "::error::VERCEL_DEPLOY_HOOK_URL secret is not set"; exit 1; fi
           curl -fsS -X POST "$HOOK"
+
+  # GitHub disables schedules in public repos after 60 days without repo activity.
+  # Re-enabling this workflow on every run resets that clock without a commit.
+  keepalive:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - name: Keep the schedule enabled
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/daily-rebuild.yml/enable"
