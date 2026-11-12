@@ -1,0 +1,68 @@
+---
+import type { ActivitySummary } from '~/utils/github/types';
+
+export interface Props {
+  activity: ActivitySummary;
+  class?: string;
+  style?: string;
+}
+
+const { activity, class: className = '', style } = Astro.props;
+const { items, merged, open, projects } = activity;
+---
+
+<div class:list={['min-w-0 border border-rule bg-surface-2 font-mono text-xs sm:text-sm', className]} style={style}>
+  <div class="flex items-center justify-between gap-3 border-b border-rule px-4 py-3 text-ink-3">
+    <span class="truncate">~/activity<span class="hidden sm:inline"> · $ gh pr list --author lofoneh</span></span>
+    <span class="hidden shrink-0 sm:inline">synced daily</span>
+  </div>
+
+  {
+    items.length === 0 ? (
+      <p class="px-4 py-6 text-ink-3">[ no activity yet ]</p>
+    ) : (
+      <ul>
+        {items.map((item, i) => (
+          <li
+            class:list={[
+              'grid items-center gap-x-3 border-b border-rule px-4 py-2.5 last:border-b-0',
+              'grid-cols-[0.625rem_minmax(0,1fr)] sm:grid-cols-[0.625rem_auto_minmax(0,1fr)]',
+              i >= 4 && 'hidden sm:grid',
+            ]}
+          >
+            <span
+              aria-hidden="true"
+              class:list={[
+                'inline-block h-2.5 w-2.5 rounded-full',
+                item.state === 'merged' ? 'bg-ink' : 'border border-ink-2 bg-transparent',
+              ]}
+            />
+            <span class="min-w-0 truncate">
+              <span class="sr-only">{item.state === 'merged' ? 'merged: ' : 'in review: '}</span>
+              <a
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-ink hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink"
+              >
+                {item.label}
+              </a>
+              <span aria-hidden="true" class="text-ink-3 sm:hidden">
+                {item.state === 'merged' ? ' · merged' : ' · review'}
+              </span>
+            </span>
+            <span class="hidden min-w-0 truncate text-ink-2 sm:block">{item.title}</span>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  <div class="border-t border-rule px-4 py-3 text-ink-3">
+    <span class="hidden sm:inline">
+      <span aria-hidden="true">●</span> merged <span aria-hidden="true">○</span> in review · {merged} merged · {open} in review
+      · {projects} projects
+    </span>
+    <span class="sm:hidden">{merged} merged · {open} in review</span>
+  </div>
+</div>

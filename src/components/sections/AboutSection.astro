@@ -1,16 +1,14 @@
 ---
-import SectionIndex from '~/components/ui/SectionIndex.astro';
+import ActivityPanel from '~/components/ui/ActivityPanel.astro';
+import { getPortfolioData } from '~/utils/github';
+
+const { activity } = await getPortfolioData();
 ---
 
 <section class="mx-auto max-w-5xl px-4 pt-8 pb-16 sm:px-6 md:pt-12 md:pb-20 lg:px-8">
   <div class="border-t border-rule pt-8 sm:pt-10">
-    <div class="grid gap-x-10 gap-y-6 md:grid-cols-[6.5rem_minmax(0,1fr)]">
-      <SectionIndex index="01" label="about" />
-
-      <div class="md:pt-2">
-        <!-- $ whoami → the greeting is its "output". Typed prompts are inline
-             terminal texture, not a windowed app, so the hero sits in the same
-             editorial system as the other sections. -->
+    <div class="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-start">
+      <div class="min-w-0">
         <p class="font-mono text-sm text-ink-3">
           <span class="select-none" aria-hidden="true">$ </span><span
             class="cmd"
@@ -27,6 +25,11 @@ import SectionIndex from '~/components/ui/SectionIndex.astro';
           >
         </h1>
 
+        <p class="reveal mt-4 font-mono text-sm text-ink-2" style="--delay:0.9s">
+          <span>devops &amp; backend engineer</span><span class="hidden sm:inline"> · </span><br class="sm:hidden" />
+          <span>accra, ghana · open to remote</span>
+        </p>
+
         <p class="mt-8 font-mono text-sm text-ink-3">
           <span class="select-none" aria-hidden="true">$ </span><span
             class="cmd"
@@ -36,23 +39,20 @@ import SectionIndex from '~/components/ui/SectionIndex.astro';
 
         <div class="mt-4 max-w-2xl space-y-5 text-base leading-relaxed text-ink sm:space-y-6 sm:text-lg">
           <p class="reveal" style="--delay:1.75s">
-            i'm a software engineer in Accra, happiest in the parts nobody notices — the infrastructure, pipelines, and
-            unglamorous plumbing that quietly keep everything people actually use running.
+            i build the parts nobody notices — pipelines, Kubernetes, observability — the unglamorous plumbing that
+            keeps everything people use running. lately that means fixing failover bugs in a Kubernetes database
+            operator, in public, with tests that prove it.
           </p>
 
           <p class="reveal" style="--delay:1.95s">
-            day-to-day that's DevOps at Adaptive Computer Solutions: CI/CD, Kubernetes, observability — keeping
-            production calm and quietly boring.
+            day-to-day that's DevOps at Adaptive Computer Solutions, keeping production calm and quietly boring. my
+            degree is in metallurgical engineering from KNUST; software was a back-door entry i taught myself after
+            graduation.
           </p>
 
           <p class="reveal" style="--delay:2.15s">
-            my degree is in metallurgical engineering from KNUST. software was a back-door entry — i taught myself after
-            graduation, and turned out to be a fast learner with a stubborn appetite for figuring things out.
-          </p>
-
-          <p class="reveal" style="--delay:2.35s">
-            at night i'm picking up Ruby on Rails, exploring Pulumi, and getting deeper into LLMs. in my downtime:
-            movies, anime, Gospel music, and the occasional acoustic guitar.
+            these days i'm deep in Go, Rust and Kubernetes operators. in my downtime: movies, anime, Gospel music, and
+            the occasional acoustic guitar.
           </p>
         </div>
 
@@ -60,6 +60,8 @@ import SectionIndex from '~/components/ui/SectionIndex.astro';
           $ <span class="caret inline-block h-[1.1em] w-[0.55em] translate-y-[0.15em] bg-ink"></span>
         </p>
       </div>
+
+      <ActivityPanel activity={activity} class="reveal" style="--delay:2.35s" />
     </div>
   </div>
 </section>
