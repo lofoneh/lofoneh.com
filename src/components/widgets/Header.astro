@@ -46,7 +46,7 @@ const { id = 'header', links = [], actions = [], isSticky = false, showToggleThe
       </a>
 
       <!-- Desktop nav + actions (md+ only) -->
-      <div class="hidden items-center gap-6 md:flex">
+      <div class="hidden items-center gap-6 lg:flex">
         <nav aria-label="Main navigation">
           <ul class="flex items-center gap-1 text-sm">
             {
@@ -76,7 +76,7 @@ const { id = 'header', links = [], actions = [], isSticky = false, showToggleThe
       </div>
 
       <!-- Mobile hamburger (mobile only) -->
-      <div class="md:hidden">
+      <div class="lg:hidden">
         <ToggleMenu class="-mr-2 flex h-10 w-10 cursor-pointer flex-col items-center justify-center" />
       </div>
     </div>
@@ -84,9 +84,9 @@ const { id = 'header', links = [], actions = [], isSticky = false, showToggleThe
     <!--
       Mobile expanded panel.
       Hidden by default; BasicScripts toggles `hidden` when the hamburger fires.
-      Always `md:hidden` so it never shows on desktop, even if the script gets confused.
+      Always `lg:hidden` so it never shows on desktop, even if the script gets confused.
     -->
-    <div class="hidden border-t border-rule pb-6 md:hidden" data-aw-mobile-menu>
+    <div class="hidden border-t border-rule pb-6 lg:hidden" data-aw-mobile-menu>
       <nav class="pt-2" aria-label="Mobile navigation">
         <ul class="flex flex-col">
           {
