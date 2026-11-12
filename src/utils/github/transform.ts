@@ -1,4 +1,14 @@
-import type { GitHubConfig, GitHubSnapshot, OssCardData, RawPullRequest } from './types';
+import type {
+  ActivityItem,
+  ActivitySummary,
+  GitHubConfig,
+  GitHubSnapshot,
+  OssCardData,
+  OwnRepoCard,
+  PortfolioData,
+  RawPullRequest,
+  RawRepo,
+} from './types';
 
 const SEARCH_URL = 'https://github.com/search?type=pullrequests&q=';
 
@@ -97,5 +107,71 @@ export function buildOssCards(
     cards: all.slice(0, config.maxCards),
     total: all.length,
     allPrsUrl: SEARCH_URL + encodeURIComponent(`is:pr author:${u} is:public -user:${u}`),
+  };
+}
+
+/** Recent contribution feed: newest first, capped per card and overall; totals cover every qualifying PR. */
+export function buildActivity(prs: RawPullRequest[], config: GitHubConfig): ActivitySummary {
+  const keys = new Set(buildAllOssCards(prs, config).map((c) => c.key));
+  const qualifying = eligiblePrs(prs, config).filter((p) => keys.has(cardKeyFor(p.repo, config)));
+
+  const all: ActivityItem[] = qualifying.map((p) => ({
+    cardKey: cardKeyFor(p.repo, config),
+    label: `${p.repo.split('/')[1]}#${p.number}`,
+    title: cleanTitle(p.title),
+    url: p.url,
+    state: p.state === 'MERGED' ? 'merged' : 'open',
+    at: p.mergedAt ?? p.createdAt,
+  }));
+  all.sort((a, b) => Date.parse(b.at) - Date.parse(a.at));
+
+  const perCard = new Map<string, number>();
+  const items: ActivityItem[] = [];
+  for (const it of all) {
+    if (items.length >= config.activityRows) break;
+    const n = perCard.get(it.cardKey) ?? 0;
+    if (n >= config.activityPerCard) continue;
+    perCard.set(it.cardKey, n + 1);
+    items.push(it);
+  }
+
+  return {
+    items,
+    merged: qualifying.filter((p) => p.state === 'MERGED').length,
+    open: qualifying.filter((p) => p.state === 'OPEN').length,
+    projects: keys.size,
+  };
+}
+
+/** Public, non-fork, non-archived repos owned by the user that carry the portfolio topic. */
+export function buildOwnRepos(repos: RawRepo[], config: GitHubConfig): OwnRepoCard[] {
+  const me = config.username.toLowerCase();
+  return repos
+    .filter(
+      (r) =>
+        !r.isPrivate &&
+        !r.isFork &&
+        !r.isArchived &&
+        r.nameWithOwner.split('/')[0].toLowerCase() === me &&
+        r.topics.includes(config.ownRepoTopic)
+    )
+    .sort((a, b) => Date.parse(b.pushedAt) - Date.parse(a.pushedAt))
+    .map((r) => ({
+      name: r.name,
+      blurb: config.overrides[r.nameWithOwner]?.blurb ?? r.description ?? '',
+      language: r.language,
+      url: r.url,
+      homepageUrl: r.homepageUrl,
+      pushedAt: r.pushedAt,
+    }));
+}
+
+export function buildPortfolioData(snapshot: GitHubSnapshot, config: GitHubConfig): PortfolioData {
+  const s = dropPrivate(snapshot);
+  return {
+    fetchedAt: s.fetchedAt,
+    oss: buildOssCards(s.pullRequests, config),
+    activity: buildActivity(s.pullRequests, config),
+    ownRepos: buildOwnRepos(s.repos, config),
   };
 }

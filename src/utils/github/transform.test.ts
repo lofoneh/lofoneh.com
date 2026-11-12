@@ -1,5 +1,15 @@
 import { expect, test } from 'bun:test';
-import { buildAllOssCards, buildOssCards, cardKeyFor, cleanTitle, dropPrivate, eligiblePrs } from './transform';
+import {
+  buildActivity,
+  buildAllOssCards,
+  buildOssCards,
+  buildOwnRepos,
+  buildPortfolioData,
+  cardKeyFor,
+  cleanTitle,
+  dropPrivate,
+  eligiblePrs,
+} from './transform';
 import type { GitHubConfig, GitHubSnapshot, RawPullRequest, RawRepo } from './types';
 
 let seq = 0;
@@ -196,4 +206,114 @@ test('cardKeyFor returns the group key for grouped repos, else owner/repo', () =
   const config = cfg({ groups: [{ key: 'kividb', name: 'KiviDB', repos: ['kividbio/kividb'] }] });
   expect(cardKeyFor('kividbio/kividb', config)).toBe('kividb');
   expect(cardKeyFor('akuity/kargo', config)).toBe('akuity/kargo');
+});
+
+const day = (d: number) => `2026-06-${String(d).padStart(2, '0')}T00:00:00Z`;
+
+test('activity: newest first by mergedAt ?? createdAt, <= 2 per card, <= 6 total', () => {
+  const config = cfg({
+    groups: [{ key: 'kividb', name: 'KiviDB', repos: ['kividbio/kividb-operator', 'kividbio/kividb'] }],
+  });
+  const op = 'kividbio/kividb-operator';
+  const prs = [
+    pr({ repo: op, number: 80, mergedAt: day(20) }),
+    pr({ repo: op, number: 81, mergedAt: day(21) }),
+    pr({ repo: op, number: 82, mergedAt: day(22) }),
+    pr({ repo: op, number: 83, mergedAt: day(23) }),
+    ...['b', 'c', 'd'].flatMap((o, i) => [
+      pr({ repo: `${o}/proj`, mergedAt: day(10 + i * 2) }),
+      pr({ repo: `${o}/proj`, mergedAt: day(11 + i * 2) }),
+    ]),
+  ];
+  const { items } = buildActivity(prs, config);
+  expect(items).toHaveLength(6);
+  expect(items.filter((i) => i.cardKey === 'kividb')).toHaveLength(2);
+  const ats = items.map((i) => Date.parse(i.at));
+  expect(ats).toEqual([...ats].sort((a, b) => b - a));
+  expect(items[0].label).toBe('kividb-operator#83');
+});
+
+test('activity: open PRs use createdAt and state "open"; titles are cleaned', () => {
+  const prs = [
+    pr({ repo: 'acme/widget', mergedAt: day(1) }),
+    pr({
+      repo: 'acme/widget',
+      number: 9,
+      title: 'x (#9)',
+      state: 'OPEN',
+      mergedAt: null,
+      createdAt: day(15),
+    }),
+  ];
+  const { items } = buildActivity(prs, cfg());
+  const open = items.find((i) => i.state === 'open');
+  expect(open).toBeDefined();
+  expect(open?.at).toBe(day(15));
+  expect(open?.title).toBe('x');
+  expect(open?.label).toBe('widget#9');
+});
+
+test('activity totals count every qualifying PR, not just the shown rows', () => {
+  const prs = [
+    ...['a', 'b', 'c'].flatMap((o) => [
+      pr({ repo: `${o}/p`, mergedAt: day(1) }),
+      pr({ repo: `${o}/p`, mergedAt: day(2) }),
+      pr({ repo: `${o}/p`, mergedAt: day(3) }),
+    ]),
+    pr({ repo: 'a/p', state: 'OPEN', mergedAt: null }),
+    pr({ repo: 'b/p', state: 'OPEN', mergedAt: null }),
+    pr({ repo: 'e2b-dev/runtime', state: 'OPEN', mergedAt: null }),
+  ];
+  const a = buildActivity(prs, cfg());
+  expect([a.merged, a.open, a.projects]).toEqual([9, 2, 3]);
+  expect(a.items.some((i) => i.cardKey === 'e2b-dev/runtime')).toBe(false);
+});
+
+test('own repos: public, non-fork, non-archived, owned, with topic; newest push first; override blurb wins', () => {
+  const config = cfg({ overrides: { 'lofoneh/kvlite': { blurb: 'override blurb' } } });
+  const mk = (name: string, over: Partial<RawRepo> = {}) =>
+    repoOf({
+      nameWithOwner: `lofoneh/${name}`,
+      name,
+      url: `https://github.com/lofoneh/${name}`,
+      topics: ['portfolio'],
+      ...over,
+    });
+  const repos = [
+    mk('kvlite', { description: 'orig', pushedAt: day(1) }),
+    mk('notag', { topics: [] }),
+    mk('forked', { isFork: true }),
+    mk('old', { isArchived: true }),
+    mk('priv', { isPrivate: true }),
+    mk('theirs', { nameWithOwner: 'acme/theirs' }),
+    mk('second', { description: null, pushedAt: day(5) }),
+  ];
+  const out = buildOwnRepos(repos, config);
+  expect(out.map((r) => r.name)).toEqual(['second', 'kvlite']);
+  expect(out[1].blurb).toBe('override blurb');
+  expect(out[0].blurb).toBe('');
+});
+
+test('empty snapshot yields empty sections without throwing', () => {
+  const d = buildPortfolioData({ fetchedAt: 'x', pullRequests: [], repos: [] }, cfg());
+  expect(d.oss.cards).toEqual([]);
+  expect(d.oss.total).toBe(0);
+  expect(d.activity).toEqual({ items: [], merged: 0, open: 0, projects: 0 });
+  expect(d.ownRepos).toEqual([]);
+  expect(d.fetchedAt).toBe('x');
+});
+
+test('buildPortfolioData drops private repos first', () => {
+  const d = buildPortfolioData(
+    {
+      fetchedAt: 'x',
+      pullRequests: [pr({ repo: 'secret/thing', repoIsPrivate: true })],
+      repos: [
+        repoOf({ nameWithOwner: 'lofoneh/win-admin', name: 'win-admin', isPrivate: true, topics: ['portfolio'] }),
+      ],
+    },
+    cfg()
+  );
+  expect(d.oss.total).toBe(0);
+  expect(d.ownRepos).toEqual([]);
 });
