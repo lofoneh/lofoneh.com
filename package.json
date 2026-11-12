@@ -13,6 +13,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "test": "bun test",
+    "github:fixture": "bun scripts/github-fixture.ts && prettier -w src/data/github.fixture.json",
     "check": "bun run check:astro && bun run check:eslint && bun run check:prettier",
     "check:astro": "astro check",
     "check:eslint": "eslint .",
