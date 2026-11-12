@@ -1,0 +1,44 @@
+---
+export interface Props {
+  meta: string;
+  name: string;
+  blurb: string;
+  links: { label: 'live' | 'repo'; href: string }[];
+  class?: string;
+}
+
+const { meta, name, blurb, links, class: className = '' } = Astro.props;
+---
+
+<article
+  class:list={[
+    'group flex min-w-0 flex-col gap-4 border border-rule p-6 transition-colors duration-200 hover:border-ink',
+    className,
+  ]}
+>
+  <p class="font-mono text-xs text-ink-3">{meta}</p>
+
+  <h3 class="break-words text-xl font-semibold leading-tight text-ink">{name}</h3>
+
+  <p class="text-sm leading-relaxed text-ink-2">{blurb}</p>
+
+  {
+    links.length > 0 && (
+      <div class="mt-auto flex flex-wrap gap-x-6 gap-y-2 font-mono text-sm">
+        {links.map((link) => (
+          <a
+            class="group/link inline-flex items-baseline gap-1 text-ink no-underline transition-colors hover:text-ink-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span aria-hidden="true" class="text-ink-3 group-hover/link:text-ink">
+              $
+            </span>
+            <span class="underline-offset-[6px] decoration-1 group-hover/link:underline">./{link.label}</span>
+          </a>
+        ))}
+      </div>
+    )
+  }
+</article>

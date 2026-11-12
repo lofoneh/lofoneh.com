@@ -1,35 +1,45 @@
 ---
-import SectionLabel from '~/components/ui/SectionLabel.astro';
 import SectionHeader from '~/components/ui/SectionHeader.astro';
-import WorkList from '~/components/widgets/WorkList.astro';
+import SectionBody from '~/components/ui/SectionBody.astro';
+import ProjectCard from '~/components/ui/ProjectCard.astro';
 import { projects } from '~/data/projects';
+import { getPortfolioData } from '~/utils/github';
 
-const real = projects.filter((p) => p.status !== 'exploring');
-const exploring = projects.filter((p) => p.status === 'exploring');
+const { ownRepos } = await getPortfolioData();
 ---
 
-<section class="mx-auto max-w-5xl px-4 pt-8 pb-8 sm:px-6 md:pt-12 md:pb-12 lg:px-8">
-  <SectionHeader index="03" label="projects" title="Things I have built.">
-    A selection of work I've shipped or am shipping, plus a few things I'm exploring next.
+<section class="mx-auto max-w-5xl px-4 pt-8 pb-24 sm:px-6 md:pt-12 md:pb-32 lg:px-8">
+  <SectionHeader index="04" label="projects" title="Things I've built.">
+    Client work I've shipped, plus my own repos. Tagged ones sync from GitHub.
   </SectionHeader>
+
+  <SectionBody class="mt-10">
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+      {
+        ownRepos.map((repo) => (
+          <ProjectCard
+            meta={['github', 'synced', repo.language].filter(Boolean).join(' · ')}
+            name={repo.name}
+            blurb={repo.blurb}
+            links={[
+              { label: 'repo', href: repo.url },
+              ...(repo.homepageUrl ? [{ label: 'live' as const, href: repo.homepageUrl }] : []),
+            ]}
+            class="reveal-up intersect intersect-once"
+          />
+        ))
+      }
+      {
+        projects.map((p) => (
+          <ProjectCard
+            meta={p.meta}
+            name={p.title}
+            blurb={p.oneLiner}
+            links={p.links.live ? [{ label: 'live', href: p.links.live }] : []}
+            class="reveal-up intersect intersect-once"
+          />
+        ))
+      }
+    </div>
+  </SectionBody>
 </section>
-
-{
-  real.length > 0 && (
-    <section class="mx-auto max-w-5xl px-4 pb-12 sm:px-6 md:pb-16 lg:px-8">
-      <WorkList projects={real} />
-    </section>
-  )
-}
-
-{
-  exploring.length > 0 && (
-    <section class="mx-auto max-w-5xl px-4 pb-24 sm:px-6 md:pb-32 lg:px-8">
-      <SectionLabel text="next-up" class="reveal-up intersect intersect-once mb-6" />
-      <p class="reveal-up intersect intersect-once mb-8 max-w-2xl text-sm text-ink-2 sm:text-base">
-        Projects I want to build next — most likely on weekends or as side experiments.
-      </p>
-      <WorkList projects={exploring} />
-    </section>
-  )
-}

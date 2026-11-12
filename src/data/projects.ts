@@ -1,87 +1,46 @@
 /**
- * Projects shown on /projects.
- *
- * Pick a `status`:
- *   - 'shipped'   : built, in production / available
- *   - 'ongoing'   : currently being built
- *   - 'exploring' : on the roadmap, haven't started yet (a "next up" tag)
- *
- * Keep `slug` unique — used for per-project detail pages later if needed.
+ * Hand-written projects shown in the Projects section (rendered after any
+ * GitHub-synced own repos). Keep `slug` unique.
  */
-
-export type ProjectStatus = 'shipped' | 'ongoing' | 'exploring';
-
-export interface ProjectLinks {
-  live?: string;
-  repo?: string;
-  docs?: string;
-}
 
 export interface Project {
   slug: string;
   title: string;
   oneLiner: string;
-  stack: string[];
-  role: string;
-  year: number;
-  status: ProjectStatus;
-  links: ProjectLinks;
-  featured?: boolean;
+  meta: string;
+  links: { live?: string };
 }
 
 export const projects: Project[] = [
-  // ─── Real ─── (shipped / ongoing) ───
   {
     slug: 'giftbanc',
-    title: 'GiftBanc — Gift Card Platform',
+    title: 'GiftBanc',
     oneLiner:
-      'CI/CD and hosting infrastructure for a live e-commerce gift card platform — containerised deployments, automated provisioning, and an edge proxy.',
-    stack: ['docker', 'ansible', 'traefik', 'github-actions', 'digitalocean'],
-    role: 'DevOps engineer (contract)',
-    year: 2025,
-    status: 'shipped',
-    links: {
-      live: 'https://giftbanc.com/',
-    },
-    featured: true,
+      'Built and run the CI/CD and hosting for a live e-commerce gift card platform, working with one developer.',
+    meta: 'contract · devops',
+    links: { live: 'https://giftbanc.com' },
   },
   {
     slug: 'win-transport',
-    title: 'WIN Transport Services — Bus Booking Admin Portal',
-    oneLiner: 'Admin portal for a live bus-booking platform, built alongside another developer.',
-    stack: ['nextjs', 'typescript', 'prisma', 'zod', 'vercel'],
-    role: 'Full-stack engineer (contract)',
-    year: 2026,
-    status: 'shipped',
-    links: {
-      live: 'https://wintransportservices.com/',
-    },
-    featured: true,
+    title: 'WIN Transport',
+    oneLiner: 'Built the admin portal for a live bus-booking platform with one other developer.',
+    meta: 'contract · full-stack',
+    links: { live: 'https://wintransportservices.com' },
   },
   {
     slug: 'win-church',
-    title: 'WIN Church Administration App',
+    title: 'WIN Church',
     oneLiner:
-      'Multi-tenant church administration platform — role-based access, member and group management, attendance, and pastoral-insight reporting.',
-    stack: ['rails', 'hotwire', 'tailwindcss', 'daisyui', 'postgresql'],
-    role: 'Solo dev',
-    year: 2026,
-    status: 'ongoing',
-    links: {},
-    featured: true,
+      'A multi-tenant church administration platform with role-based access, member and group management, and attendance reporting.',
+    meta: 'live · multi-tenant',
+    links: { live: 'https://win-admin-alpha.vercel.app' },
   },
-  // ─── Exploring / next up ───
   {
-    slug: 'collage',
-    title: 'Collage',
+    slug: 'iac-studio',
+    title: 'IaC Studio',
     oneLiner:
-      'A push-to-deploy DevOps PaaS for African builders — managed CI/CD, container orchestration, observability, and databases in one opinionated stack. In planning with a small founding team.',
-    stack: ['go', 'kubernetes', 'terraform', 'postgresql', 'docker'],
-    role: 'Co-founder · infra lead',
-    year: 2026,
-    status: 'exploring',
+      'Turns a cloud architecture drawn on a canvas into Terraform for AWS, GCP, Azure or DigitalOcean, with plan and apply run in background workers.',
+    meta: 'private',
     links: {},
   },
 ];
-
-export const featuredProjects = (count = 3): Project[] => projects.filter((p) => p.featured).slice(0, count);
