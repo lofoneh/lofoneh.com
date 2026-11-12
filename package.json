@@ -12,6 +12,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "test": "bun test",
     "check": "bun run check:astro && bun run check:eslint && bun run check:prettier",
     "check:astro": "astro check",
     "check:eslint": "eslint .",
