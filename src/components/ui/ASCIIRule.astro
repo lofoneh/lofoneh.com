@@ -1,9 +1,0 @@
----
-export interface Props {
-  class?: string;
-}
-
-const { class: className = '' } = Astro.props;
----
-
-<hr class:list={['my-12 border-0 border-t border-rule md:my-14', className]} aria-hidden="true" />

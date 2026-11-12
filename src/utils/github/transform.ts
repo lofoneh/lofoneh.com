@@ -83,7 +83,8 @@ export function buildAllOssCards(prs: RawPullRequest[], config: GitHubConfig): O
       prLinks,
       moreCount: merged.length - prLinks.length,
       moreUrl:
-        SEARCH_URL + encodeURIComponent(`is:pr author:${config.username} ${repos.map((r) => `repo:${r}`).join(' ')}`),
+        SEARCH_URL +
+        encodeURIComponent(`is:pr is:merged author:${config.username} ${repos.map((r) => `repo:${r}`).join(' ')}`),
       latestMergedAt: latest.mergedAt ?? '',
     });
   }

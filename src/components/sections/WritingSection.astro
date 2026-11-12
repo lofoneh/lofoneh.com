@@ -25,7 +25,7 @@ const posts = await findLatestPosts({ count: 5 });
           return (
             <li class="grid gap-1 border-b border-rule py-4 sm:grid-cols-[7rem_minmax(0,1fr)] sm:gap-6">
               <p class="font-mono text-xs text-ink-3">
-                <time datetime={String(post.publishDate)}>{getFormattedDate(post.publishDate)}</time>
+                <time datetime={post.publishDate.toISOString()}>{getFormattedDate(post.publishDate)}</time>
               </p>
               <h3 class="min-w-0 font-semibold leading-tight text-ink">
                 {link ? (

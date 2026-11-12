@@ -21,7 +21,7 @@ const { items, merged, open, projects } = activity;
     items.length === 0 ? (
       <p class="px-4 py-6 text-ink-3">[ no activity yet ]</p>
     ) : (
-      <ul>
+      <ul aria-label="Recent pull requests">
         {items.map((item, i) => (
           <li
             class:list={[

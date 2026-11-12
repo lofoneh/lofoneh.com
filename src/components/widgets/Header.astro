@@ -45,7 +45,7 @@ const { id = 'header', links = [], actions = [], isSticky = false, showToggleThe
         <Logo />
       </a>
 
-      <!-- Desktop nav + actions (md+ only) -->
+      <!-- Desktop nav + actions (lg+ only) -->
       <div class="hidden items-center gap-6 lg:flex">
         <nav aria-label="Main navigation">
           <ul class="flex items-center gap-1 text-sm">
@@ -75,7 +75,7 @@ const { id = 'header', links = [], actions = [], isSticky = false, showToggleThe
         </div>
       </div>
 
-      <!-- Mobile hamburger (mobile only) -->
+      <!-- Mobile hamburger (below lg only) -->
       <div class="lg:hidden">
         <ToggleMenu class="-mr-2 flex h-10 w-10 cursor-pointer flex-col items-center justify-center" />
       </div>

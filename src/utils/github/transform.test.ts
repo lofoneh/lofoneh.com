@@ -166,6 +166,7 @@ test('prLinks: 3 newest merged, cross-repo PRs prefixed, moreCount and moreUrl',
   expect(card.prLinks.map((l) => l.label)).toEqual(['kividb#636', '#83', '#77']);
   expect(card.prLinks[0].url).toBe('https://github.com/kividbio/kividb/pull/636');
   expect(card.moreCount).toBe(2);
+  expect(card.moreUrl).toContain('is%3Amerged');
   expect(card.moreUrl).toContain('repo%3Akividbio%2Fkividb-operator');
   expect(card.moreUrl).toContain('repo%3Akividbio%2Fkividb');
   expect(card.latestMergedAt).toBe('2026-05-05T00:00:00Z');

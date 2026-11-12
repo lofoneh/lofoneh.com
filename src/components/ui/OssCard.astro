@@ -18,7 +18,7 @@ const linkClass =
     className,
   ]}
 >
-  <p class="font-mono text-xs text-ink-3">{owner} · {tag}</p>
+  <p class="font-mono text-xs text-ink-3">{[owner, tag].filter(Boolean).join(' · ')}</p>
 
   <h3 class="text-xl font-semibold leading-tight text-ink">
     <a
